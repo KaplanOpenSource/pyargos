@@ -19,7 +19,7 @@ class TestFileExperimentFactorySimple:
     def test_factory_loads_correct_name(self, exp_simple_path):
         """Loaded experiment should have the correct name from data.json."""
         exp = fileExperimentFactory(exp_simple_path).getExperiment()
-        assert exp.setup["experiment"]["name"] == "New Experiment"
+        assert exp.name == "New Experiment"
 
     def test_factory_default_path_is_cwd(self):
         """Factory with no path should default to current working directory."""
@@ -33,12 +33,12 @@ class TestFileExperimentFactoryGroups:
     def test_factory_loads_groups_experiment(self, exp_groups_path):
         """Factory should load the groups experiment successfully."""
         exp = fileExperimentFactory(exp_groups_path).getExperiment()
-        assert exp.setup["experiment"]["name"] == "exp groups"
+        assert exp.name == "exp groups"
 
     def test_factory_loads_noattr_experiment(self, exp_groups_noattr_path):
         """Factory should load the no-attributes experiment successfully."""
         exp = fileExperimentFactory(exp_groups_noattr_path).getExperiment()
-        assert exp.setup["experiment"]["name"] == "exp groups"
+        assert exp.name == "exp groups"
 
 
 class TestFileExperimentFactoryInvalidPath:

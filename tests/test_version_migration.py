@@ -14,13 +14,13 @@ class TestVersion3:
         """v3.0.0 simple experiment should load without errors."""
         from argos.experimentSetup.dataObjectsFactory import fileExperimentFactory
         exp = fileExperimentFactory(exp_simple_path).getExperiment()
-        assert exp.setup["experiment"]["name"] == "New Experiment"
+        assert exp.name == "New Experiment"
 
     def test_loads_v3_groups(self, exp_groups_path):
         """v3.0.0 groups experiment should load without errors."""
         from argos.experimentSetup.dataObjectsFactory import fileExperimentFactory
         exp = fileExperimentFactory(exp_groups_path).getExperiment()
-        assert exp.setup["experiment"]["name"] == "exp groups"
+        assert exp.name == "exp groups"
 
     def test_v3_has_entity_types(self, exp_simple_path):
         """v3.0.0 deviceTypes should be normalized to entityType."""

@@ -23,13 +23,13 @@ def groups_exp(exp_groups_path):
 
 class TestExperimentMetadata:
 
-    def test_name_via_experiment_key(self, simple_exp):
-        """After v3 migration, name is under setup['experiment']['name']."""
-        assert simple_exp.setup["experiment"]["name"] == "New Experiment"
+    def test_name(self, simple_exp):
+        """exp.name should work for v3 ZIP experiments."""
+        assert simple_exp.name == "New Experiment"
 
-    def test_description_via_experiment_key(self, simple_exp):
-        """After v3 migration, description is under setup['experiment']."""
-        assert isinstance(simple_exp.setup["experiment"]["description"], str)
+    def test_description_is_string(self, simple_exp):
+        """exp.description should work for v3 ZIP experiments."""
+        assert isinstance(simple_exp.description, str)
 
     def test_setup_is_dict(self, simple_exp):
         assert isinstance(simple_exp.setup, dict)
