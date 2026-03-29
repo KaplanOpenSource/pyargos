@@ -132,24 +132,67 @@ class Experiment:
         """
         The name of the experiment.
 
+        Handles different JSON structures across versions:
+
+        - v3.0.0 ZIP (after migration): ``setup['experiment']['name']``
+        - v2.0.0 ZIP (after migration): ``setup['experiment']['name']``
+        - Web (GraphQL): ``setup['experimentsWithData']['name']``
+        - Legacy/direct: ``setup['name']``
+
         Returns
         -------
         str
             The experiment name as defined in the configuration.
         """
-        return self.setup['name']
+        return self._get_experiment_field('name')
 
     @property
     def description(self):
         """
         The description of the experiment.
 
+        Handles different JSON structures across versions.
+        See :attr:`name` for the lookup order.
+
         Returns
         -------
         str
             The experiment description as defined in the configuration.
         """
-        return self.setup['description']
+        return self._get_experiment_field('description')
+
+    def _get_experiment_field(self, field):
+        """
+        Look up an experiment-level field across different JSON structures.
+
+        Checks in order:
+
+        1. ``setup[field]`` (legacy/direct)
+        2. ``setup['experiment'][field]`` (v2/v3 ZIP after migration)
+        3. ``setup['experimentsWithData'][field]`` (web/GraphQL)
+
+        Parameters
+        ----------
+        field : str
+            The field name (e.g., ``'name'``, ``'description'``).
+
+        Returns
+        -------
+        any
+            The field value.
+
+        Raises
+        ------
+        KeyError
+            If the field is not found in any of the expected locations.
+        """
+        if field in self.setup:
+            return self.setup[field]
+        if 'experiment' in self.setup and field in self.setup['experiment']:
+            return self.setup['experiment'][field]
+        if 'experimentsWithData' in self.setup and field in self.setup['experimentsWithData']:
+            return self.setup['experimentsWithData'][field]
+        raise KeyError(f"Field '{field}' not found in experiment setup")
 
     @property
     def trialSet(self):

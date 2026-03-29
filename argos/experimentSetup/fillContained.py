@@ -172,29 +172,44 @@ def fill_properties_by_contained(entities_types_dict, meta_entities):
     handlerDict = dict(Number=handle_Number,
                        String=handle_String)
 
+    # Build a cross-reference lookup: "TypeName : ItemName" → entity dict.
+    # This allows O(1) parent lookups when walking the containment chain.
     xref_entities = {key_from_name(e): e for e in meta_entities if key_from_name(e) is not None}
 
+    # Deep-copy to avoid mutating the original trial metadata.
     filled_entities = deepcopy(meta_entities)
+
+    # Phase 1: Type-convert attributes and inherit from parents.
     for entity in filled_entities:
         if key_from_name(entity) is not None:
+            # Look up the entity type schema to get attribute type definitions.
             device_type = entities_types_dict[entity["deviceTypeName"]]
             type_attrs = device_type._metadata.get("attributeTypes", [])
             attrs_names = [a.get("name", None) for a in type_attrs]
             attrs_names = [a for a in attrs_names if a is not None]
+            # Map attribute name → type string (e.g. "height" → "Number")
             type_attrs_dict = dict((x['name'],x['type']) for x in type_attrs)
 
+            # Apply type conversion to each attribute value using the
+            # handler for its declared type (Number → float, String → str).
             entity_attrs = get_attrs(entity)
             for singleEntityAttrs in entity_attrs:
                 entityName = singleEntityAttrs['name']
                 singleEntityAttrs['value'] = handlerDict[type_attrs_dict[entityName]](singleEntityAttrs['value'])
 
-
+            # Walk up the containment chain: child → parent → grandparent → ...
+            # At each level, inherit missing attributes and location from parent.
+            # Child's own values always take precedence (only copy if not found).
             parent = get_parent(xref_entities, entity)
             while parent is not None:
                 parent_attrs = get_attrs(parent)
+                # Always inherit location from parent (overwritten at each level,
+                # so the immediate parent's location wins).
                 entity["location"] = parent.get('location', {})
                 for pa in parent_attrs:
                     pa_name = pa["name"]
+                    # Only inherit attributes that are defined in the type schema
+                    # and not already present on the child entity.
                     if pa_name in attrs_names:
                         found = [ea for ea in entity_attrs if pa_name == ea["name"]]
                         if len(found) == 0:
@@ -204,9 +219,11 @@ def fill_properties_by_contained(entities_types_dict, meta_entities):
 
             entity["attributes"] = entity_attrs
 
+    # Phase 2: Flatten complex attributes into top-level fields.
+    # location → mapName, latitude, longitude
+    # attributes list → individual keys
+    # containedIn dict → containedInType, containedIn (name only)
     for entity in filled_entities:
-        # if "containedIn" in entity:
-        #     del entity["containedIn"]
         spread_attributes(entity)
 
     return filled_entities
