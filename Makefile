@@ -6,6 +6,7 @@ PYTHON       ?= python3
 VENV_NAME    ?= Argos
 
 .PHONY: help install install-deps install-dev env env-persist \
+        test test-verbose \
         mermaid-pull render-diagrams render-diagrams-force \
         docs-deps docs-build docs-build-strict docs-serve docs-deploy docs-clean
 
@@ -18,6 +19,10 @@ help:
 	@echo "    make install-dev         Install dev + optional dependencies (Kafka, TB, docs)"
 	@echo "    make env                 Print the environment variables needed for pyArgos"
 	@echo "    make env-persist         Add PYTHONPATH to ~/.bashrc (prompts for confirmation)"
+	@echo ""
+	@echo "  Testing:"
+	@echo "    make test                Run all tests"
+	@echo "    make test-verbose        Run all tests with full output"
 	@echo ""
 	@echo "  Documentation:"
 	@echo "    make docs-build          Build full site (render diagrams + mkdocs build)"
@@ -95,6 +100,14 @@ env-persist:
 			echo "  echo '$$EXPORT_LINE' >> $$SHELL_RC"; \
 		fi; \
 	fi
+
+# --- Testing ---
+
+test:
+	pytest
+
+test-verbose:
+	pytest -v --tb=long
 
 # --- Documentation ---
 
