@@ -11,8 +11,6 @@ import zipfile
 import os
 import json
 import pandas
-import requests
-from io import BytesIO
 import matplotlib.pyplot as plt
 import warnings
 
@@ -75,8 +73,6 @@ class Experiment:
     _trialSetsDict = None  # A dictionary of the trial sets.
     _entitiesTypesDict = None  # A dictionary of the devices types.
 
-    _client = None  # The client of the connection to the WEB.
-
     _imagesMap = None
 
     def refresh(self):
@@ -104,30 +100,6 @@ class Experiment:
         return self._experimentSetup
 
     @property
-    def url(self):
-        """
-        The base URL of the experiment on the ArgosWEB server.
-
-        Returns
-        -------
-        str
-            The URL string from the experiment's ``experimentsWithData`` section.
-        """
-        return self.setup['experimentsWithData']['url']
-
-    @property
-    def client(self):
-        """
-        The GraphQL client used for web-based experiments.
-
-        Returns
-        -------
-        Client or None
-            The GQL client instance, or None for file-based experiments.
-        """
-        return self._client
-
-    @property
     def name(self):
         """
         The name of the experiment.
@@ -136,7 +108,6 @@ class Experiment:
 
         - v3.0.0 ZIP (after migration): ``setup['experiment']['name']``
         - v2.0.0 ZIP (after migration): ``setup['experiment']['name']``
-        - Web (GraphQL): ``setup['experimentsWithData']['name']``
         - Legacy/direct: ``setup['name']``
 
         Returns
@@ -169,7 +140,6 @@ class Experiment:
 
         1. ``setup[field]`` (legacy/direct)
         2. ``setup['experiment'][field]`` (v2/v3 ZIP after migration)
-        3. ``setup['experimentsWithData'][field]`` (web/GraphQL)
 
         Parameters
         ----------
@@ -190,8 +160,6 @@ class Experiment:
             return self.setup[field]
         if 'experiment' in self.setup and field in self.setup['experiment']:
             return self.setup['experiment'][field]
-        if 'experimentsWithData' in self.setup and field in self.setup['experimentsWithData']:
-            return self.setup['experimentsWithData'][field]
         raise KeyError(f"Field '{field}' not found in experiment setup")
 
     @property
@@ -310,15 +278,8 @@ class Experiment:
         self._init_ImageMaps()
 
     def _init_ImageMaps(self):
-        ## Initializing the images map
+        """Initialize the images map. Overridden by ExperimentZipFile."""
         self._imagesMap = dict()
-        if 'experimentsWithData' in self.setup:
-            for imgs in self.setup['experimentsWithData']['maps']:
-                imgName = imgs['imageName']
-                imageFullURL = f"{self.url}/{imgs['imageUrl']}"
-                imgs['imageURL'] = imageFullURL
-
-                self._imagesMap[imgName] = imgs
 
     @property
     def imageMap(self):
@@ -486,7 +447,10 @@ class Experiment:
 
     def getImage(self, imageName: str):
         """
-        Load an experiment image from the local filesystem.
+        Load an experiment image.
+
+        Override in subclasses to provide image loading from the
+        appropriate source (e.g., ZIP archive).
 
         Parameters
         ----------
@@ -496,16 +460,14 @@ class Experiment:
         Returns
         -------
         numpy.ndarray
-            The image data as a NumPy array (via matplotlib.pyplot.imread).
+            The image data as a NumPy array.
+
+        Raises
+        ------
+        NotImplementedError
+            If not overridden by a subclass.
         """
-        imgUrl = os.path.join(self.setup['experimentsWithData']['url'], "images", f"{imageName}.png")
-        # maybe we can skip the open(...), didn't want to risk it
-        try:
-            with open(imgUrl) as imageFile:
-                img = plt.imread(imageFile)
-        except UnicodeDecodeError:
-            img = plt.imread(imgUrl)
-        return img
+        raise NotImplementedError("getImage must be called on ExperimentZipFile, not base Experiment")
 
 
 class ExperimentZipFile(Experiment):
@@ -662,43 +624,6 @@ class ExperimentZipFile(Experiment):
         return oldFormat
 
 
-class webExperiment(Experiment):
-    """
-    Experiment loaded from a remote ArgosWEB server.
-
-    Extends :class:`Experiment` to fetch images via HTTP rather than
-    from the local filesystem.
-    """
-
-    def getImage(self, imageName: str):
-        """
-        Fetch an experiment image from the remote server via HTTP.
-
-        Parameters
-        ----------
-        imageName : str
-            The name of the image.
-
-        Returns
-        -------
-        numpy.ndarray
-            The image data as a NumPy array.
-
-        Raises
-        ------
-        ValueError
-            If the image is not found on the server (HTTP status != 200).
-        """
-        imgUrl = self.getImageURL(imageName)
-        response = requests.get(imgUrl)
-
-        if response.status_code != 200:
-            raise ValueError(f"Image {imageName} not found on the server.")
-
-        imageFile = BytesIO(response.content)
-        return plt.imread(imageFile)
-
-
 class TrialSet(dict):
     """
     A collection of trials belonging to a single trial set.
@@ -723,18 +648,6 @@ class TrialSet(dict):
     _metadata = None
 
     _trialsDict = None
-
-    @property
-    def client(self):
-        """
-        The GraphQL client from the parent experiment.
-
-        Returns
-        -------
-        Client or None
-            The GQL client instance, or None for file-based experiments.
-        """
-        return self.experiment.client
 
     @property
     def experiment(self):
@@ -913,18 +826,6 @@ class Trial:
             The experiment this trial belongs to (via the parent trial set).
         """
         return self._trialSet.experiment
-
-    @property
-    def client(self):
-        """
-        The GraphQL client from the root experiment.
-
-        Returns
-        -------
-        Client or None
-            The GQL client instance, or None for file-based experiments.
-        """
-        return self._trialSet.experiment.client
 
     @property
     def experiment(self):
@@ -1546,18 +1447,6 @@ class EntityType(dict):
             The experiment this entity type belongs to.
         """
         return self._experiment
-
-    @property
-    def client(self):
-        """
-        The GraphQL client from the parent experiment.
-
-        Returns
-        -------
-        Client or None
-            The GQL client instance, or None for file-based experiments.
-        """
-        return self.experiment.client
 
     @property
     def name(self):

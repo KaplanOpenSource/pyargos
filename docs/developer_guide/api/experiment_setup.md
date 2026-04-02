@@ -13,10 +13,8 @@ Each class in this module has a distinct responsibility in the experiment lifecy
 | Class | Role | Analogy |
 |-------|------|---------|
 | `fileExperimentFactory` | Locates and loads experiment data from local disk | File browser |
-| `webExperimentFactory` | Fetches experiment data from ArgosWEB via GraphQL | API client |
 | `Experiment` | Root container holding all entity types, trial sets, and image maps | Project folder |
 | `ExperimentZipFile` | Variant of Experiment that reads from a `.zip` archive (with version migration) | ZIP reader |
-| `webExperiment` | Variant of Experiment that fetches images over HTTP | Remote reader |
 | `TrialSet` | Named collection of trials (e.g., "design", "deploy") | Folder of trials |
 | `Trial` | A single experimental configuration with per-entity attributes | Configuration snapshot |
 | `EntityType` | Schema definition + collection of entities of one type (e.g., "Sensor") | Device class |
@@ -28,7 +26,7 @@ Each class in this module has a distinct responsibility in the experiment lifecy
 
 ### Experiment Hierarchy
 
-`Experiment` is the base class. Two subclasses override only the data-loading and image-fetching behavior, keeping the rest of the interface identical:
+`Experiment` is the base class. `ExperimentZipFile` overrides the data-loading and image-fetching behavior, keeping the rest of the interface identical:
 
 ![Diagram](../../images/diagrams/developer_guide_api_experiment_setup_0_a46b01b4.svg)
 
@@ -56,19 +54,13 @@ classDiagram
         -_fix_json_version_3_0_0()
     }
 
-    class webExperiment {
-        +getImage() ⟵ overrides
-    }
-
     Experiment <|-- ExperimentZipFile : "reads from ZIP archive"
-    Experiment <|-- webExperiment : "fetches images via HTTP"
 ```
 -->
 
 **What each subclass changes:**
 
 - **ExperimentZipFile** -- `refresh()` extracts `data.json` from the ZIP, detects the schema version, and applies the appropriate migration. `getImage()` reads images from inside the archive. `_init_ImageMaps()` parses the ZIP's internal map format.
-- **webExperiment** -- `getImage()` does an HTTP GET to fetch the image from the ArgosWEB server. Everything else is inherited.
 
 ### Container Hierarchy (dict-based)
 
@@ -217,58 +209,6 @@ sequenceDiagram
 
 ---
 
-## Call Workflow: Loading an Experiment from Web
-
-![Diagram](../../images/diagrams/developer_guide_api_experiment_setup_3_fde07684.svg)
-
-<!-- mermaid source (for editing, paste into mermaid.live):
-```mermaid
-sequenceDiagram
-    actor User
-    participant Factory as webExperimentFactory
-    participant GQL as ArgosWEB (GraphQL)
-    participant Exp as webExperiment
-    participant TS as TrialSet
-    participant ET as EntityType
-
-    User->>Factory: factory = webExperimentFactory(url, token)
-    User->>Factory: experiment = factory.getExperiment("MyExp")
-    Factory->>Factory: getExperimentMetadata("MyExp")
-
-    Factory->>GQL: Query experimentsWithData (name, description, maps)
-    GQL-->>Factory: Experiment descriptor
-
-    Factory->>GQL: Query entitiesTypes (key, name, properties)
-    GQL-->>Factory: Entity type list
-    loop For each entityType
-        Factory->>GQL: Query entities (key, name, properties)
-        GQL-->>Factory: Entity list for type
-    end
-
-    Factory->>GQL: Query trialSets (key, name, properties)
-    GQL-->>Factory: Trial set list
-    loop For each trialSet
-        Factory->>GQL: Query trials (name, properties, entities)
-        GQL-->>Factory: Trial list for set
-    end
-
-    Factory->>Factory: Assemble metadata dict
-    Factory->>Exp: webExperiment(metadata)
-    Note over Exp: Same __init__ as Experiment:<br/>refresh → _initTrialSets → _initEntitiesTypes
-
-    Exp-->>Factory: return webExperiment
-    Factory-->>User: experiment object ready
-
-    Note over User: Images fetched on demand
-    User->>Exp: experiment.getImage("field_map")
-    Exp->>GQL: HTTP GET image URL
-    GQL-->>Exp: Image bytes
-    Exp-->>User: numpy.ndarray
-```
--->
-
----
-
 ## Call Workflow: Accessing Trial Entity Data
 
 When you access `trial.entities` or `trial.entitiesTable`, the containment hierarchy is resolved on-the-fly:
@@ -317,15 +257,6 @@ sequenceDiagram
 
 ---
 
-## Module Entry Point
-
-::: argos.experimentSetup.getExperimentSetup
-    options:
-      show_root_heading: true
-      heading_level: 3
-
----
-
 ## Factories
 
 ### fileExperimentFactory
@@ -345,34 +276,6 @@ sequenceDiagram
       members:
         - __init__
         - getExperiment
-
----
-
-### webExperimentFactory
-
-**Role:** Connects to an ArgosWEB server via GraphQL and fetches experiment data remotely. Supports listing experiments, fetching metadata, and loading complete experiments.
-
-**Key behavior:**
-
-- Authenticates with a token-based authorization header
-- Issues multiple GraphQL queries to assemble the full experiment: entity types, entities, trial sets, trials
-- Returns a `webExperiment` object whose `getImage()` fetches images over HTTP
-
-::: argos.experimentSetup.dataObjectsFactory.webExperimentFactory
-    options:
-      show_root_heading: true
-      heading_level: 4
-      members:
-        - __init__
-        - getExperiment
-        - getExperimentMetadata
-        - getExperimentsDescriptionsList
-        - getExperimentsDescriptionsTable
-        - getExperimentDescriptor
-        - listExperimentsNames
-        - url
-        - client
-        - keys
 
 ---
 
@@ -426,19 +329,6 @@ sequenceDiagram
       members:
         - __init__
         - refresh
-        - getImage
-
----
-
-### webExperiment
-
-**Role:** Handles experiments fetched from a remote ArgosWEB server. The only override is `getImage()`, which fetches images via HTTP GET instead of reading from disk.
-
-::: argos.experimentSetup.dataObjects.webExperiment
-    options:
-      show_root_heading: true
-      heading_level: 4
-      members:
         - getImage
 
 ---

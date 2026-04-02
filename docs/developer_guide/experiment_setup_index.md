@@ -27,7 +27,7 @@ The architecture page covers the **internal design** of the module: how classes 
 
 - [**Experiment Setup Architecture**](architecture/experiment_setup.md)
     - Module overview and file layout
-    - Inheritance hierarchy (Experiment → ExperimentZipFile / webExperiment)
+    - Inheritance hierarchy (Experiment → ExperimentZipFile)
     - Container classes (dict-based TrialSet, EntityType)
     - Full object composition diagram
     - Factory pattern decision flow
@@ -51,12 +51,10 @@ The API page provides the **class-level documentation** with role descriptions, 
     - Class roles summary table
     - Inheritance and container hierarchy diagrams
     - Swimlane: loading experiment from file
-    - Swimlane: loading experiment from web (GraphQL)
     - Swimlane: accessing trial entity data (containment resolution)
     - Auto-generated docs for every class and method:
-        - `getExperimentSetup` (module entry point)
-        - `fileExperimentFactory`, `webExperimentFactory`
-        - `Experiment`, `ExperimentZipFile`, `webExperiment`
+        - `fileExperimentFactory`
+        - `Experiment`, `ExperimentZipFile`
         - `TrialSet`, `Trial`
         - `EntityType`, `Entity`
         - `fill_properties_by_contained`, `spread_attributes`, `get_parent`, `key_from_name`
@@ -72,7 +70,7 @@ The user guide covers the **practical usage** -- how to create experiments, defi
     - Configuring datasources
     - Defining entities (DEVICE / ASSET)
     - Setting up trials (template → design → upload)
-    - Loading experiments in Python (file and web)
+    - Loading experiments in Python (from file)
 
 ---
 

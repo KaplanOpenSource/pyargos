@@ -36,32 +36,6 @@ sequenceDiagram
 
 ---
 
-## Remote Experiment Loading
-
-![Diagram](../../images/diagrams/developer_guide_architecture_data_flow_1_ff8aacf7.svg)
-
-<!-- mermaid source (for editing, paste into mermaid.live):
-```mermaid
-sequenceDiagram
-    participant Client
-    participant Factory as webExperimentFactory
-    participant GQL as GraphQL Server
-    participant Exp as webExperiment
-
-    Client->>Factory: webExperimentFactory(url, token)
-    Client->>Factory: getExperiment(name)
-    Factory->>GQL: Query entity types
-    Factory->>GQL: Query entities
-    Factory->>GQL: Query trial sets
-    Factory->>GQL: Query trials
-    GQL-->>Factory: Experiment metadata
-    Factory->>Exp: Create webExperiment
-    Factory-->>Client: Return webExperiment
-```
--->
-
----
-
 ## Kafka to Parquet Pipeline
 
 ![Diagram](../../images/diagrams/developer_guide_architecture_data_flow_2_bfa05a42.svg)

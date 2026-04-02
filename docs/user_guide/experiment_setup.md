@@ -171,18 +171,6 @@ trial = experiment.trialSet["design"]["morningTrial"]
 print(trial.entitiesTable())
 ```
 
-### From ArgosWEB
-
-```python
-from argos.experimentSetup import webExperimentFactory
-
-factory = webExperimentFactory(url="http://argos-server/graphql", token="your-token")
-experiment = factory.getExperiment("MyExperiment")
-
-# List all experiments
-print(factory.listExperimentsNames())
-```
-
 ---
 
 ## Using the Generated Starter Script

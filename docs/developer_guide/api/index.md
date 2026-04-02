@@ -12,8 +12,8 @@ argos/
   CLI.py                      # CLI command handlers
   manager.py                  # experimentManager class
   experimentSetup/
-    __init__.py               # getExperimentSetup(), WEB/FILE constants
-    dataObjectsFactory.py     # fileExperimentFactory, webExperimentFactory
+    __init__.py               # FILE constant
+    dataObjectsFactory.py     # fileExperimentFactory
     dataObjects.py            # Experiment, TrialSet, Trial, EntityType, Entity
     fillContained.py          # fill_properties_by_contained()
   kafka/
@@ -43,10 +43,6 @@ argos/
 # Load an experiment from files
 from argos.experimentSetup import fileExperimentFactory
 experiment = fileExperimentFactory("/path").getExperiment()
-
-# Load an experiment from web
-from argos.experimentSetup import webExperimentFactory
-experiment = webExperimentFactory(url, token).getExperiment("name")
 
 # Use the experiment manager (with ThingsBoard)
 from argos.manager import experimentManager
