@@ -1,0 +1,2905 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the pyArgos IoT experiment management platform">
+      
+      
+      
+        <link rel="canonical" href="https://argosp.github.io/pyargos/developer_guide/architecture/experiment_setup/">
+      
+      
+        <link rel="prev" href="../../experiment_setup_index/">
+      
+      
+        <link rel="next" href="../../api/experiment_setup/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Architecture - pyArgos Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#experiment-setup-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="pyArgos Documentation" class="md-header__button md-logo" aria-label="pyArgos Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            pyArgos Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/argosp/pyargos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    argosp/pyargos
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../user_guide/" class="md-tabs__link">
+          
+  
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+  Developer Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="pyArgos Documentation" class="md-nav__button md-logo" aria-label="pyArgos Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    pyArgos Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/argosp/pyargos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    argosp/pyargos
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation & Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/experiment_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experiment Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/kafka/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/thingsboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ThingsBoard Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/nodered/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node-RED Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing & Mock Devices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guide/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Model Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experiment Setup
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Experiment Setup
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experiment_setup_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inheritance-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inheritance Hierarchy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inheritance Hierarchy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#experiment-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Experiment Classes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container-classes-dict-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container Classes (dict-based)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-object-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full Object Composition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#factory-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Factory Pattern
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Factory Pattern">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-migration-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version Migration Detail
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-initialization-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object Initialization Sequence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object Initialization Sequence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#experiment-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Experiment Construction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entity-property-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity Property Collection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#property-type-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Property Type System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Property Type System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trial-property-parsing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trial Property Parsing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#property-scopes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Property Scopes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containment-hierarchy-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Containment Hierarchy Resolution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Containment Hierarchy Resolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-solution-fillcontained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Solution: fillContained
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#walk-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Walk Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pandas-dataframe-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pandas DataFrame Interface
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pandas DataFrame Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataframe-generation-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DataFrame Generation Map
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relationship-between-dataframes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relationship Between DataFrames
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serialization-tojson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serialization (toJSON)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deprecated-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deprecated Interface
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Decisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Design Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-dict-subclasses-for-trialset-and-entitytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why dict subclasses for TrialSet and EntityType?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-pandas-for-everything" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Pandas for everything?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-factory-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why factory pattern?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/experiment_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core_concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experiment Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/kafka/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka Consumer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/nodered/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node-RED
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/nosql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NoSQL (Cassandra & MongoDB)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/utils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module Overview
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Layout
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inheritance-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inheritance Hierarchy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inheritance Hierarchy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#experiment-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Experiment Classes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container-classes-dict-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container Classes (dict-based)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#full-object-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full Object Composition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#factory-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Factory Pattern
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Factory Pattern">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#decision-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-migration-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version Migration Detail
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#object-initialization-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Object Initialization Sequence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Object Initialization Sequence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#experiment-construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Experiment Construction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#entity-property-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity Property Collection
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#property-type-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Property Type System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Property Type System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trial-property-parsing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trial Property Parsing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#property-scopes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Property Scopes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containment-hierarchy-resolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Containment Hierarchy Resolution
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Containment Hierarchy Resolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-solution-fillcontained" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Solution: fillContained
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#walk-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Walk Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pandas-dataframe-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pandas DataFrame Interface
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pandas DataFrame Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataframe-generation-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DataFrame Generation Map
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#relationship-between-dataframes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relationship Between DataFrames
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serialization-tojson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Serialization (toJSON)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deprecated-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deprecated Interface
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Decisions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Design Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-dict-subclasses-for-trialset-and-entitytype" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why dict subclasses for TrialSet and EntityType?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-pandas-for-everything" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Pandas for everything?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-factory-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why factory pattern?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="experiment-setup-architecture">Experiment Setup Architecture<a class="headerlink" href="#experiment-setup-architecture" title="Permanent link">&para;</a></h1>
+<p>This page provides a deep architectural reference for the <code>argos.experimentSetup</code> module -- the core of pyArgos. It covers the inheritance hierarchy, object lifecycle, property system, data flow, and internal design decisions.</p>
+<hr />
+<h2 id="module-overview">Module Overview<a class="headerlink" href="#module-overview" title="Permanent link">&para;</a></h2>
+<p>The <code>experimentSetup</code> module is responsible for:</p>
+<ol>
+<li><strong>Loading</strong> experiment definitions from files (JSON/ZIP)</li>
+<li><strong>Parsing</strong> the raw JSON into a typed object hierarchy</li>
+<li><strong>Exposing</strong> experiment metadata as Pandas DataFrames for analysis</li>
+<li><strong>Resolving</strong> entity containment hierarchies (parent-child property inheritance)</li>
+<li><strong>Handling</strong> schema version migrations across different ArgosWEB exports</li>
+</ol>
+<h3 id="file-layout">File Layout<a class="headerlink" href="#file-layout" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>argos/experimentSetup/
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    __init__.py                 # Module entry point, FILE constant
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    dataObjectsFactory.py       # Factory classes (file)
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    dataObjects.py              # Data object hierarchy (Experiment, Trial, Entity, ...)
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    fillContained.py            # Containment hierarchy resolution
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    runner.py                   # Development/test runner script
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    example_exp/                # Example experiment data for testing
+</code></pre></div>
+<hr />
+<h2 id="inheritance-hierarchy">Inheritance Hierarchy<a class="headerlink" href="#inheritance-hierarchy" title="Permanent link">&para;</a></h2>
+<h3 id="experiment-classes">Experiment Classes<a class="headerlink" href="#experiment-classes" title="Permanent link">&para;</a></h3>
+<p>The <code>Experiment</code> base class defines the full interface for accessing experiment data. <code>ExperimentZipFile</code> overrides the data-loading and image-fetching behavior:</p>
+<p><img alt="Diagram" src="../../../images/diagrams/developer_guide_architecture_experiment_setup_0_f2b553c6.svg" /></p>
+<!-- mermaid source (for editing, paste into mermaid.live):
+<pre class="mermaid"><code>classDiagram
+    class Experiment {
+        &lt;&lt;base class&gt;&gt;
+        #_setupFileNameOrData
+        #_experimentSetup : dict
+        #_trialSetsDict : dict
+        #_entitiesTypesDict : dict
+        #_imagesMap : dict
+        #_client
+        +__init__(setupFileOrData)
+        +refresh()
+        +setup : dict
+        +name : str
+        +description : str
+        +url : str
+        +client
+        +trialSet : dict~str, TrialSet~
+        +entityType : dict~str, EntityType~
+        +entityTypeTable : DataFrame
+        +entitiesTable : DataFrame
+        +trialsTableAllSets : DataFrame
+        +trialsTable(trialsetName) DataFrame
+        +imageMap : dict
+        +getImage(imageName) ndarray
+        +getImageURL(imageName) str
+        +getImageMetadata(imageName) dict
+        +getImageJSMappingFunction(imageName) str
+        +getExperimentEntities() list
+        +getEntitiesTypeByID(entityTypeID)
+        +toJSON() dict
+        #_initTrialSets()
+        #_initEntitiesTypes()
+        #_init_ImageMaps()
+    }
+
+    class ExperimentZipFile {
+        &lt;&lt;ZIP archive source&gt;&gt;
+        +__init__(setupFileOrData)
+        +refresh()◄
+        +getImage(imageName)◄
+        #_init_ImageMaps()◄
+        #_fix_json_version_1_0_0_(jsonFile)
+        #_fix_json_version_2_0_0_(jsonFile)
+        #_fix_json_version_3_0_0(jsonFile)
+    }
+
+    Experiment &lt;|-- ExperimentZipFile : inherits
+
+    note for ExperimentZipFile "◄ = overridden method"</code></pre>
+-->
+
+<p><strong>Key override points:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Experiment (base)</th>
+<th>ExperimentZipFile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>refresh()</code></td>
+<td>Loads JSON from file/dict</td>
+<td>Extracts <code>data.json</code> from ZIP, applies version migration</td>
+</tr>
+<tr>
+<td><code>getImage()</code></td>
+<td>Reads from local filesystem path</td>
+<td>Reads from inside the ZIP archive</td>
+</tr>
+<tr>
+<td><code>_init_ImageMaps()</code></td>
+<td>Parses <code>maps</code> with full URLs</td>
+<td>Parses <code>maps</code> from ZIP metadata (no URLs)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="container-classes-dict-based">Container Classes (dict-based)<a class="headerlink" href="#container-classes-dict-based" title="Permanent link">&para;</a></h3>
+<p>Both <code>TrialSet</code> and <code>EntityType</code> extend Python's <code>dict</code>, enabling dictionary-style access to their children:</p>
+<p><img alt="Diagram" src="../../../images/diagrams/developer_guide_architecture_experiment_setup_1_2838b743.svg" /></p>
+<!-- mermaid source (for editing, paste into mermaid.live):
+<pre class="mermaid"><code>classDiagram
+    class dict {
+        &lt;&lt;builtin&gt;&gt;
+        +__getitem__(key)
+        +__setitem__(key, value)
+        +items()
+        +keys()
+        +values()
+    }
+
+    class TrialSet {
+        #_experiment : Experiment
+        #_metadata : dict
+        +__init__(experiment, metadata)
+        +experiment : Experiment
+        +name : str
+        +description : str
+        +numberOfTrials : int
+        +properties : list
+        +propertiesTable : DataFrame
+        +trials : dict
+        +trialsTable : DataFrame
+        +toJSON() dict
+        #_initTrials()
+    }
+
+    class EntityType {
+        #_experiment : Experiment
+        #_metadata : dict
+        +__init__(experiment, metadata)
+        +experiment : Experiment
+        +name : str
+        +numberOfEntities : int
+        +properties : list
+        +propertiesTable : DataFrame
+        +entitiesTable : DataFrame
+        +entitiesAllProperties : DataFrame
+        +toJSON() dict
+        #_initEntities()
+    }
+
+    dict &lt;|-- TrialSet : extends
+    dict &lt;|-- EntityType : extends</code></pre>
+-->
+
+<p>This means:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># TrialSet acts as a dict of Trial objects</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">trial</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">trialSet</span><span class="p">[</span><span class="s2">&quot;design&quot;</span><span class="p">][</span><span class="s2">&quot;myTrial&quot;</span><span class="p">]</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># EntityType acts as a dict of Entity objects</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">entity</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">entityType</span><span class="p">[</span><span class="s2">&quot;Sensor&quot;</span><span class="p">][</span><span class="s2">&quot;Sensor_01&quot;</span><span class="p">]</span>
+</code></pre></div>
+<h3 id="full-object-composition">Full Object Composition<a class="headerlink" href="#full-object-composition" title="Permanent link">&para;</a></h3>
+<p><img alt="Diagram" src="../../../images/diagrams/developer_guide_architecture_experiment_setup_2_df5898ee.svg" /></p>
+<!-- mermaid source (for editing, paste into mermaid.live):
+<pre class="mermaid"><code>graph TD
+    subgraph "Experiment (root)"
+        EXP[Experiment]
+    end
+
+    subgraph "Entity branch"
+        ET1[EntityType: Sensor]
+        ET2[EntityType: Gateway]
+        E1[Entity: Sensor_01]
+        E2[Entity: Sensor_02]
+        E3[Entity: Gateway_01]
+    end
+
+    subgraph "Trial branch"
+        TS1[TrialSet: design]
+        TS2[TrialSet: deploy]
+        T1[Trial: morning]
+        T2[Trial: night]
+        T3[Trial: v1]
+    end
+
+    EXP --&gt;|entityType dict| ET1
+    EXP --&gt;|entityType dict| ET2
+    EXP --&gt;|trialSet dict| TS1
+    EXP --&gt;|trialSet dict| TS2
+
+    ET1 --&gt;|dict items| E1
+    ET1 --&gt;|dict items| E2
+    ET2 --&gt;|dict items| E3
+
+    TS1 --&gt;|dict items| T1
+    TS1 --&gt;|dict items| T2
+    TS2 --&gt;|dict items| T3
+
+    T1 -.-&gt;|references via entities| E1
+    T1 -.-&gt;|references via entities| E2
+    T2 -.-&gt;|references via entities| E1</code></pre>
+-->
+
+<hr />
+<h2 id="factory-pattern">Factory Pattern<a class="headerlink" href="#factory-pattern" title="Permanent link">&para;</a></h2>
+<h3 id="decision-flow">Decision Flow<a class="headerlink" href="#decision-flow" title="Permanent link">&para;</a></h3>
+<p><img alt="Diagram" src="../../../images/diagrams/developer_guide_architecture_experiment_setup_3_8d93df22.svg" /></p>
+<!-- mermaid source (for editing, paste into mermaid.live):
+<pre class="mermaid"><code>flowchart TD
+    A[Client calls factory directly] --&gt; C[fileExperimentFactory]
+
+    C --&gt; E[Scan runtimeExperimentData/]
+    E --&gt; F{Found .zip files?}
+    F --&gt;|Yes| G[Take first .zip file]
+    F --&gt;|No| H{Found experiment.json?}
+    H --&gt;|Yes| I[Load JSON file]
+    H --&gt;|No| J[Raise ValueError]
+
+    G --&gt; K[ExperimentZipFile.__init__]
+    I --&gt; L[Experiment.__init__]
+
+    K --&gt; M[refresh: extract data.json from ZIP]
+    M --&gt; N{Detect version}
+    N --&gt;|1.0.0| O[Pass through]
+    N --&gt;|2.0.0| P[Migrate: flatten trials/entities into trialSets/entityTypes]
+    N --&gt;|3.0.0| Q[Migrate: rename deviceTypes→entityTypes, trialTypes→trialSets]
+    O --&gt; R[_initTrialSets + _initEntitiesTypes]
+    P --&gt; R
+    Q --&gt; R
+
+    L --&gt; R
+
+    R --&gt; X[Return Experiment object]</code></pre>
+-->
+
+<h3 id="version-migration-detail">Version Migration Detail<a class="headerlink" href="#version-migration-detail" title="Permanent link">&para;</a></h3>
+<p>When <code>ExperimentZipFile.refresh()</code> loads a ZIP archive, it detects the schema version and applies the appropriate migration:</p>
+<p><img alt="Diagram" src="../../../images/diagrams/developer_guide_architecture_experiment_setup_4_4c893096.svg" /></p>
+<!-- mermaid source (for editing, paste into mermaid.live):
+<pre class="mermaid"><code>flowchart LR
+    A[data.json from ZIP] --&gt; B{version field?}
+    B --&gt;|missing| C["Default: 1.0.0"]
+    B --&gt;|present| D[Read version string]
+    C --&gt; E["_fix_json_version_1_0_0_"]
+    D --&gt; F{version}
+    F --&gt;|1.0.0| E
+    F --&gt;|2.0.0| G["_fix_json_version_2_0_0_"]
+    F --&gt;|3.0.0| H["_fix_json_version_3_0_0"]
+
+    E --&gt;|pass-through| I[Standard internal format]
+    G --&gt;|"Flatten: trials[] → trialSets[].trials[]&lt;br&gt;entities[] → entityTypes[].entities[]"| I
+    H --&gt;|"Rename: deviceTypes → entityTypes&lt;br&gt;trialTypes → trialSets&lt;br&gt;devices → entities&lt;br&gt;devicesOnTrial → entities"| I</code></pre>
+-->
+
+<p><strong>Internal standard format</strong> (what all versions are normalized to):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="nt">&quot;experiment&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">},</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;entityTypes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sensor&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">            </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">            </span><span class="nt">&quot;attributeTypes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">            </span><span class="nt">&quot;entities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sensor_01&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">]}]</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="p">],</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="nt">&quot;trialSets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;design&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">            </span><span class="nt">&quot;attributeTypes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">            </span><span class="nt">&quot;trials&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;trial1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">],</span><span class="w"> </span><span class="nt">&quot;entities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">]}]</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">    </span><span class="p">],</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="nt">&quot;maps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">...</span><span class="p">]</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="object-initialization-sequence">Object Initialization Sequence<a class="headerlink" href="#object-initialization-sequence" title="Permanent link">&para;</a></h2>
+<h3 id="experiment-construction">Experiment Construction<a class="headerlink" href="#experiment-construction" title="Permanent link">&para;</a></h3>
+<p><img alt="Diagram" src="../../../images/diagrams/developer_guide_architecture_experiment_setup_5_2c0573b6.svg" /></p>
+<!-- mermaid source (for editing, paste into mermaid.live):
+<pre class="mermaid"><code>sequenceDiagram
+    participant Client
+    participant Exp as Experiment.__init__
+    participant Refresh as refresh()
+    participant TS as _initTrialSets()
+    participant ET as _initEntitiesTypes()
+    participant IMG as _init_ImageMaps()
+
+    Client-&gt;&gt;Exp: __init__(setupFileOrData)
+    Exp-&gt;&gt;Exp: Create empty dicts for trialSets, entitiesTypes
+    Exp-&gt;&gt;Refresh: refresh()
+    Refresh-&gt;&gt;Refresh: loadJSON(setupFileOrData)
+    Refresh-&gt;&gt;TS: _initTrialSets()
+
+    loop For each trialSet in setup['trialSets']
+        TS-&gt;&gt;TS: Create TrialSet(experiment, metadata)
+        Note over TS: TrialSet.__init__ calls _initTrials()
+        loop For each trial in trialSet
+            TS-&gt;&gt;TS: Create Trial(trialSet, metadata)
+            Note over TS: Trial.__init__ parses properties&lt;br/&gt;using type-specific handlers
+        end
+    end
+
+    Refresh-&gt;&gt;ET: _initEntitiesTypes()
+    loop For each entityType in setup['entityTypes']
+        ET-&gt;&gt;ET: Create EntityType(experiment, metadata)
+        Note over ET: EntityType.__init__ calls _initEntities()
+        loop For each entity in entityType
+            ET-&gt;&gt;ET: Create Entity(entityType, metadata)
+            Note over ET: Entity.__init__ collects&lt;br/&gt;Constant + Device scope properties
+        end
+    end
+
+    Exp-&gt;&gt;IMG: _init_ImageMaps()
+    IMG-&gt;&gt;IMG: Build image URL map
+    Exp--&gt;&gt;Client: Fully initialized Experiment</code></pre>
+-->
+
+<h3 id="entity-property-collection">Entity Property Collection<a class="headerlink" href="#entity-property-collection" title="Permanent link">&para;</a></h3>
+<p>When an <code>Entity</code> is created, it collects properties from two sources:</p>
+<p><img alt="Diagram" src="../../../images/diagrams/developer_guide_architecture_experiment_setup_6_a7408c10.svg" /></p>
+<!-- mermaid source (for editing, paste into mermaid.live):
+<pre class="mermaid"><code>flowchart TD
+    A[Entity.__init__] --&gt; B[Scan EntityType attributeTypes]
+    B --&gt; C{scope == 'Constant'?}
+    C --&gt;|Yes| D["Add {name, defaultValue, scope='Constant'}"]
+    C --&gt;|No| E[Skip]
+
+    A --&gt; F[Scan entity metadata attributes]
+    F --&gt; G["Add {name, value, scope='Device'}"]
+
+    D --&gt; H[self._properties list]
+    G --&gt; H
+
+    H --&gt; I["properties dict: {name: value}"]
+    H --&gt; J["propertiesList: [{name, value, scope}]"]
+    H --&gt; K["propertiesTable: DataFrame"]</code></pre>
+-->
+
+<hr />
+<h2 id="property-type-system">Property Type System<a class="headerlink" href="#property-type-system" title="Permanent link">&para;</a></h2>
+<h3 id="trial-property-parsing">Trial Property Parsing<a class="headerlink" href="#trial-property-parsing" title="Permanent link">&para;</a></h3>
+<p>When a <code>Trial</code> is initialized, each property value is parsed according to its type. The type is defined in the parent <code>TrialSet</code>'s <code>attributeTypes</code>:</p>
+<p><img alt="Diagram" src="../../../images/diagrams/developer_guide_architecture_experiment_setup_7_e1a14d9e.svg" /></p>
+<!-- mermaid source (for editing, paste into mermaid.live):
+<pre class="mermaid"><code>flowchart TD
+    A[Trial.__init__] --&gt; B[Merge raw properties with TrialSet.attributeTypes]
+    B --&gt; C[For each property]
+    C --&gt; D{property type?}
+
+    D --&gt;|location| E["_parseProperty_location&lt;br/&gt;→ locationName, latitude, longitude"]
+    D --&gt;|text| F["_parseProperty_text&lt;br/&gt;→ string value"]
+    D --&gt;|textArea| G["_parseProperty_textArea&lt;br/&gt;→ string value"]
+    D --&gt;|number| H["_parseProperty_number&lt;br/&gt;→ float value"]
+    D --&gt;|boolean| I["_parseProperty_boolean&lt;br/&gt;→ True/False"]
+    D --&gt;|datetime_local| J["_parseProperty_datetime_local&lt;br/&gt;→ Timestamp (Israel TZ)"]
+    D --&gt;|selectList| K["_parseProperty_selectList&lt;br/&gt;→ selected value"]
+
+    E --&gt; L["self._properties dict"]
+    F --&gt; L
+    G --&gt; L
+    H --&gt; L
+    I --&gt; L
+    J --&gt; L
+    K --&gt; L</code></pre>
+-->
+
+<p><strong>Parser contract:</strong> Every <code>_parseProperty_*</code> method returns <code>(columns: list[str], values: list)</code>. For most types this is a single column/value pair. For <code>location</code>, it expands to three columns.</p>
+<h3 id="property-scopes">Property Scopes<a class="headerlink" href="#property-scopes" title="Permanent link">&para;</a></h3>
+<p>Properties exist at different scopes throughout the hierarchy:</p>
+<p><img alt="Diagram" src="../../../images/diagrams/developer_guide_architecture_experiment_setup_8_bb1e9867.svg" /></p>
+<!-- mermaid source (for editing, paste into mermaid.live):
+<pre class="mermaid"><code>graph TD
+    subgraph "EntityType level"
+        A["attributeTypes&lt;br/&gt;(schema definitions)"]
+    end
+
+    subgraph "Entity level"
+        B["Constant scope&lt;br/&gt;(from type defaults)"]
+        C["Device scope&lt;br/&gt;(from entity attributes)"]
+    end
+
+    subgraph "Trial level"
+        D["Trial-specific properties&lt;br/&gt;(per entity per trial)"]
+    end
+
+    A --&gt;|"scope='Constant'"| B
+    A --&gt;|defines schema for| D
+    C --&gt;|"override defaults"| E[Entity.properties]
+    B --&gt;|"defaults"| E
+    D --&gt;|"per-trial overlay"| F[Entity.allPropertiesTable]
+    E --&gt;|"constant base"| F</code></pre>
+-->
+
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>Source</th>
+<th>Changes per trial?</th>
+<th>Access</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Constant</strong></td>
+<td>EntityType <code>attributeTypes</code> with <code>scope='Constant'</code></td>
+<td>No</td>
+<td><code>entity.properties</code></td>
+</tr>
+<tr>
+<td><strong>Device</strong></td>
+<td>Entity <code>attributes</code> in metadata</td>
+<td>No</td>
+<td><code>entity.properties</code></td>
+</tr>
+<tr>
+<td><strong>Trial</strong></td>
+<td>Trial <code>entities</code> data</td>
+<td>Yes</td>
+<td><code>entity.trialProperties(setName, trialName)</code></td>
+</tr>
+<tr>
+<td><strong>All combined</strong></td>
+<td>Constant + Device + Trial (forward-filled)</td>
+<td>Yes</td>
+<td><code>entity.allPropertiesTable</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="containment-hierarchy-resolution">Containment Hierarchy Resolution<a class="headerlink" href="#containment-hierarchy-resolution" title="Permanent link">&para;</a></h2>
+<h3 id="the-problem">The Problem<a class="headerlink" href="#the-problem" title="Permanent link">&para;</a></h3>
+<p>In ArgosWEB, entities can be "contained in" other entities (e.g., a sensor mounted on a pole, which is placed at a location). Child entities should inherit properties (especially <code>location</code>) from their parents.</p>
+<h3 id="the-solution-fillcontained">The Solution: <code>fillContained</code><a class="headerlink" href="#the-solution-fillcontained" title="Permanent link">&para;</a></h3>
+<p><img alt="Diagram" src="../../../images/diagrams/developer_guide_architecture_experiment_setup_9_7656d845.svg" /></p>
+<!-- mermaid source (for editing, paste into mermaid.live):
+<pre class="mermaid"><code>flowchart TD
+    A["Input: raw entity list from trial"] --&gt; B["Build cross-reference map&lt;br/&gt;key_from_name(entity) → entity"]
+
+    B --&gt; C["Deep copy entity list&lt;br/&gt;(don't mutate original)"]
+    C --&gt; D["For each entity with a valid key"]
+
+    D --&gt; E["Look up EntityType for type conversion"]
+    E --&gt; F["Convert attribute values&lt;br/&gt;(Number → float, String → str)"]
+
+    F --&gt; G{"Has parent&lt;br/&gt;(containedIn)?"}
+    G --&gt;|Yes| H["Copy parent's location"]
+    H --&gt; I["Copy parent's attributes&lt;br/&gt;(only if entity is missing them)"]
+    I --&gt; J{"Parent also has parent?"}
+    J --&gt;|Yes| H
+    J --&gt;|No| K[Continue]
+    G --&gt;|No| K
+
+    K --&gt; L["spread_attributes(entity)"]
+
+    subgraph "spread_attributes"
+        L --&gt; M{"Has location?"}
+        M --&gt;|Yes| N["location → mapName, latitude, longitude"]
+        M --&gt;|No| O[Skip]
+
+        L --&gt; P{"Has attributes list?"}
+        P --&gt;|Yes| Q["Flatten to top-level keys"]
+        P --&gt;|No| R[Skip]
+
+        L --&gt; S{"Has containedIn?"}
+        S --&gt;|Yes| T["containedIn → containedInType + containedIn (name)"]
+        S --&gt;|No| U[Skip]
+    end
+
+    N --&gt; V["Output: flat entity dict"]
+    Q --&gt; V
+    T --&gt; V</code></pre>
+-->
+
+<h3 id="walk-example">Walk Example<a class="headerlink" href="#walk-example" title="Permanent link">&para;</a></h3>
+<p>Consider this containment chain:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Location_A (has location: {name: &quot;Field&quot;, coordinates: [34.8, 32.0]})
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>  └── Pole_01 (contained in Location_A, has attribute: height=3.0)
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        └── Sensor_01 (contained in Pole_01, has attribute: threshold=25.0)
+</code></pre></div>
+<p>After <code>fill_properties_by_contained</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Sensor_01 gets:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="p">{</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="s2">&quot;deviceItemName&quot;</span><span class="p">:</span> <span class="s2">&quot;Sensor_01&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="s2">&quot;deviceTypeName&quot;</span><span class="p">:</span> <span class="s2">&quot;Sensor&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="mf">25.0</span><span class="p">,</span>       <span class="c1"># own attribute</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">,</span>           <span class="c1"># inherited from Pole_01</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="s2">&quot;mapName&quot;</span><span class="p">:</span> <span class="s2">&quot;Field&quot;</span><span class="p">,</span>       <span class="c1"># inherited from Location_A (via location)</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="s2">&quot;latitude&quot;</span><span class="p">:</span> <span class="mf">32.0</span><span class="p">,</span>         <span class="c1"># inherited from Location_A</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="s2">&quot;longitude&quot;</span><span class="p">:</span> <span class="mf">34.8</span><span class="p">,</span>        <span class="c1"># inherited from Location_A</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="s2">&quot;containedInType&quot;</span><span class="p">:</span> <span class="s2">&quot;Pole&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="s2">&quot;containedIn&quot;</span><span class="p">:</span> <span class="s2">&quot;Pole_01&quot;</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="pandas-dataframe-interface">Pandas DataFrame Interface<a class="headerlink" href="#pandas-dataframe-interface" title="Permanent link">&para;</a></h2>
+<h3 id="dataframe-generation-map">DataFrame Generation Map<a class="headerlink" href="#dataframe-generation-map" title="Permanent link">&para;</a></h3>
+<p>Every major object exposes one or more DataFrame properties. This diagram shows how they are computed:</p>
+<p><img alt="Diagram" src="../../../images/diagrams/developer_guide_architecture_experiment_setup_10_77c968ef.svg" /></p>
+<!-- mermaid source (for editing, paste into mermaid.live):
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Experiment level"
+        A["experiment.entitiesTable"] --&gt; A1["Loop entityType → entity&lt;br/&gt;Concat propertiesTable + entityType + entityName"]
+        B["experiment.entityTypeTable"] --&gt; B1["Loop entityType&lt;br/&gt;Concat propertiesTable + entityType"]
+        C["experiment.trialsTableAllSets"] --&gt; C1["Loop trialSet → trialsTable&lt;br/&gt;Concat + add trialSet column"]
+    end
+
+    subgraph "TrialSet level"
+        D["trialSet.propertiesTable"] --&gt; D1["DataFrame(attributeTypes)"]
+        E["trialSet.trialsTable"] --&gt; E1["DataFrame(toJSON()['trials']).T"]
+    end
+
+    subgraph "Trial level"
+        F["trial.propertiesTable"] --&gt; F1["DataFrame(properties, index=[0])"]
+        G["trial.entitiesTable"] --&gt; G1["fill_properties_by_contained&lt;br/&gt;→ _composeProperties"]
+        H["trial.entities"] --&gt; H1["entitiesTable → set_index → T.to_dict&lt;br/&gt;→ filter out NaN"]
+    end
+
+    subgraph "EntityType level"
+        I["entityType.propertiesTable"] --&gt; I1["DataFrame(attributeTypes)"]
+        J["entityType.entitiesTable"] --&gt; J1["Loop entity → propertiesTable&lt;br/&gt;Concat + set_index(entityName)"]
+        K["entityType.entitiesAllProperties"] --&gt; K1["Loop entity → allPropertiesTable&lt;br/&gt;Concat + set_index(entityName, trialName)"]
+    end
+
+    subgraph "Entity level"
+        L["entity.propertiesTable"] --&gt; L1["DataFrame(propertiesList)"]
+        M["entity.allTrialPropertiesTable"] --&gt; M1["Loop trialSet → trial&lt;br/&gt;trialProperties() + trialSetName + trialName"]
+        N["entity.allPropertiesTable"] --&gt; N1["allTrialPropertiesTable.join(propertiesTable)&lt;br/&gt;.ffill()"]
+    end</code></pre>
+-->
+
+<h3 id="relationship-between-dataframes">Relationship Between DataFrames<a class="headerlink" href="#relationship-between-dataframes" title="Permanent link">&para;</a></h3>
+<p><img alt="Diagram" src="../../../images/diagrams/developer_guide_architecture_experiment_setup_11_b46026cf.svg" /></p>
+<!-- mermaid source (for editing, paste into mermaid.live):
+<pre class="mermaid"><code>graph LR
+    A["entity.propertiesTable&lt;br/&gt;(constant props)"] --&gt;|join| C["entity.allPropertiesTable&lt;br/&gt;(constant + trial)"]
+    B["entity.allTrialPropertiesTable&lt;br/&gt;(trial-specific per trial)"] --&gt;|join + ffill| C
+
+    D["entityType.entitiesTable"] --&gt;|"concat of"| A
+    E["entityType.entitiesAllProperties"] --&gt;|"concat of"| C
+
+    F["experiment.entitiesTable"] --&gt;|"concat of"| D
+    G["experiment.entityTypeTable"] --&gt;|"concat of"| H["entityType.propertiesTable"]</code></pre>
+-->
+
+<hr />
+<h2 id="serialization-tojson">Serialization (toJSON)<a class="headerlink" href="#serialization-tojson" title="Permanent link">&para;</a></h2>
+<p>Each object can be serialized back to a JSON-compatible dict. The serialization is hierarchical:</p>
+<p><img alt="Diagram" src="../../../images/diagrams/developer_guide_architecture_experiment_setup_12_64f84197.svg" /></p>
+<!-- mermaid source (for editing, paste into mermaid.live):
+<pre class="mermaid"><code>flowchart TD
+    A["experiment.toJSON()"] --&gt; B["entityType dict"]
+    A --&gt; C["trialSet dict"]
+    A --&gt; D["experiment metadata&lt;br/&gt;(maps, begin, end, description)"]
+
+    B --&gt; E["entityType.toJSON()"]
+    E --&gt; F["name + properties"]
+    E --&gt; G["entities dict"]
+    G --&gt; H["entity.toJSON()"]
+    H --&gt; I["name + entityType + allPropertiesList"]
+
+    C --&gt; J["trialSet.toJSON()"]
+    J --&gt; K["name + properties"]
+    J --&gt; L["trials dict"]
+    L --&gt; M["trial.toJSON()"]
+    M --&gt; N["properties + name"]</code></pre>
+-->
+
+<hr />
+<h2 id="deprecated-interface">Deprecated Interface<a class="headerlink" href="#deprecated-interface" title="Permanent link">&para;</a></h2>
+<p>Several methods and properties are deprecated but maintained for backwards compatibility. They all emit <code>DeprecationWarning</code> and delegate to current methods:</p>
+<table>
+<thead>
+<tr>
+<th>Deprecated</th>
+<th>Replacement</th>
+<th>Class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>trial.deployEntitiesTable</code></td>
+<td><code>trial.entitiesTable</code></td>
+<td>Trial</td>
+</tr>
+<tr>
+<td><code>trial.designEntities</code></td>
+<td><code>trial.entities</code></td>
+<td>Trial</td>
+</tr>
+<tr>
+<td><code>trial.designEntitiesTable</code></td>
+<td><code>trial.entitiesTable</code></td>
+<td>Trial</td>
+</tr>
+<tr>
+<td><code>trial.deployEntities</code></td>
+<td><code>trial.entities</code></td>
+<td>Trial</td>
+</tr>
+<tr>
+<td><code>entity.trial(set, name, state)</code></td>
+<td><code>entity.trialProperties(set, name)</code></td>
+<td>Entity</td>
+</tr>
+<tr>
+<td><code>entity.designProperties</code></td>
+<td><code>entity.allTrialProperties</code></td>
+<td>Entity</td>
+</tr>
+<tr>
+<td><code>entity.deployProperties</code></td>
+<td><code>entity.allTrialProperties</code></td>
+<td>Entity</td>
+</tr>
+<tr>
+<td><code>entity.trialDesign(set, name)</code></td>
+<td><code>entity.trialProperties(set, name)</code></td>
+<td>Entity</td>
+</tr>
+<tr>
+<td><code>entity.trialDeploy(set, name)</code></td>
+<td><code>entity.trialProperties(set, name)</code></td>
+<td>Entity</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Migration</p>
+<p>If you see <code>DeprecationWarning</code> from pyArgos, update your code to use the replacement methods. The deprecated methods may be removed in a future version.</p>
+</div>
+<hr />
+<h2 id="design-decisions">Design Decisions<a class="headerlink" href="#design-decisions" title="Permanent link">&para;</a></h2>
+<h3 id="why-dict-subclasses-for-trialset-and-entitytype">Why <code>dict</code> subclasses for TrialSet and EntityType?<a class="headerlink" href="#why-dict-subclasses-for-trialset-and-entitytype" title="Permanent link">&para;</a></h3>
+<p>TrialSet and EntityType extend <code>dict</code> rather than using a plain attribute. This enables natural Python dictionary syntax for accessing children while still providing rich properties:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Natural dict access</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">trial</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">trialSet</span><span class="p">[</span><span class="s2">&quot;design&quot;</span><span class="p">][</span><span class="s2">&quot;morning&quot;</span><span class="p">]</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">entity</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">entityType</span><span class="p">[</span><span class="s2">&quot;Sensor&quot;</span><span class="p">][</span><span class="s2">&quot;Sensor_01&quot;</span><span class="p">]</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># But also rich properties</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">experiment</span><span class="o">.</span><span class="n">trialSet</span><span class="p">[</span><span class="s2">&quot;design&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">trialsTable</span>    <span class="c1"># DataFrame</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">experiment</span><span class="o">.</span><span class="n">entityType</span><span class="p">[</span><span class="s2">&quot;Sensor&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">entitiesTable</span>  <span class="c1"># DataFrame</span>
+</code></pre></div>
+<h3 id="why-pandas-for-everything">Why Pandas for everything?<a class="headerlink" href="#why-pandas-for-everything" title="Permanent link">&para;</a></h3>
+<p>Experiment metadata is inherently tabular (entities have rows of properties, trials have rows of attributes). Pandas provides:</p>
+<ul>
+<li>Filtering: <code>df[df.entityType == "Sensor"]</code></li>
+<li>Joining: merge entity data with trial data</li>
+<li>Export: <code>to_csv()</code>, <code>to_parquet()</code>, <code>to_json()</code></li>
+<li>Familiar API for data scientists working with pyArgos</li>
+</ul>
+<h3 id="why-factory-pattern">Why factory pattern?<a class="headerlink" href="#why-factory-pattern" title="Permanent link">&para;</a></h3>
+<p>The same <code>Experiment</code> interface is needed regardless of whether data comes from a local JSON file or a ZIP archive. The factory pattern:</p>
+<ul>
+<li>Hides the complexity of source detection (ZIP vs JSON)</li>
+<li>Handles version migration transparently</li>
+<li>Returns a uniform interface that client code can rely on</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.instant", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
