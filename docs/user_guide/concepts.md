@@ -51,9 +51,8 @@ All of this is done through forms, tables, and map interfaces in the browser
 ### How pyArgos fits in
 
 pyArgos is the **Python programmatic interface** to the data that ArgosWEB
-creates. It reads the exported ZIP file (or connects to the ArgosWEB server
-via GraphQL) and makes the experiment data available as Python objects and
-Pandas DataFrames.
+creates. It reads the exported ZIP file and makes the experiment data
+available as Python objects and Pandas DataFrames.
 
 ```
                     ┌──────────────────────┐

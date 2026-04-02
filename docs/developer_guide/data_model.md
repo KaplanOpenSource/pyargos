@@ -15,7 +15,7 @@ An **Experiment** is a complete scientific or engineering study conducted with I
 - **Where things are** (image maps with geo-coordinates)
 - **When it runs** (start and end dates)
 
-An experiment is created in [ArgosWEB](https://github.com/argosp) and exported as a ZIP file, or loaded directly from the server via GraphQL.
+An experiment is created in [ArgosWEB](https://github.com/argosp) and exported as a ZIP file for use with pyArgos.
 
 ### What is an Entity Type?
 

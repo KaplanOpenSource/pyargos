@@ -8,7 +8,7 @@ This page provides a deep architectural reference for the `argos.experimentSetup
 
 The `experimentSetup` module is responsible for:
 
-1. **Loading** experiment definitions from files (JSON/ZIP) or the ArgosWEB server (GraphQL)
+1. **Loading** experiment definitions from files (JSON/ZIP)
 2. **Parsing** the raw JSON into a typed object hierarchy
 3. **Exposing** experiment metadata as Pandas DataFrames for analysis
 4. **Resolving** entity containment hierarchies (parent-child property inheritance)
@@ -18,8 +18,8 @@ The `experimentSetup` module is responsible for:
 
 ```
 argos/experimentSetup/
-    __init__.py                 # Module entry point, WEB/FILE constants
-    dataObjectsFactory.py       # Factory classes (file, web)
+    __init__.py                 # Module entry point, FILE constant
+    dataObjectsFactory.py       # Factory classes (file)
     dataObjects.py              # Data object hierarchy (Experiment, Trial, Entity, ...)
     fillContained.py            # Containment hierarchy resolution
     runner.py                   # Development/test runner script
@@ -32,7 +32,7 @@ argos/experimentSetup/
 
 ### Experiment Classes
 
-The `Experiment` base class defines the full interface for accessing experiment data. Two subclasses override only the data-loading and image-fetching behavior:
+The `Experiment` base class defines the full interface for accessing experiment data. `ExperimentZipFile` overrides the data-loading and image-fetching behavior:
 
 ![Diagram](../../images/diagrams/developer_guide_architecture_experiment_setup_0_f2b553c6.svg)
 
@@ -84,26 +84,19 @@ classDiagram
         #_fix_json_version_3_0_0(jsonFile)
     }
 
-    class webExperiment {
-        <<HTTP source>>
-        +getImage(imageName)◄
-    }
-
     Experiment <|-- ExperimentZipFile : inherits
-    Experiment <|-- webExperiment : inherits
 
     note for ExperimentZipFile "◄ = overridden method"
-    note for webExperiment "◄ = overridden method"
 ```
 -->
 
 **Key override points:**
 
-| Method | Experiment (base) | ExperimentZipFile | webExperiment |
-|--------|-------------------|-------------------|---------------|
-| `refresh()` | Loads JSON from file/dict | Extracts `data.json` from ZIP, applies version migration | Inherited (uses base) |
-| `getImage()` | Reads from local filesystem path | Reads from inside the ZIP archive | Fetches via HTTP GET |
-| `_init_ImageMaps()` | Parses `experimentsWithData.maps` with full URLs | Parses `maps` from ZIP metadata (no URLs) | Inherited (uses base) |
+| Method | Experiment (base) | ExperimentZipFile |
+|--------|-------------------|-------------------|
+| `refresh()` | Loads JSON from file/dict | Extracts `data.json` from ZIP, applies version migration |
+| `getImage()` | Reads from local filesystem path | Reads from inside the ZIP archive |
+| `_init_ImageMaps()` | Parses `maps` with full URLs | Parses `maps` from ZIP metadata (no URLs) |
 
 ### Container Classes (dict-based)
 
@@ -226,10 +219,7 @@ graph TD
 <!-- mermaid source (for editing, paste into mermaid.live):
 ```mermaid
 flowchart TD
-    A[Client calls getExperimentSetup or factory directly] --> B{Source type?}
-
-    B -->|FILE| C[fileExperimentFactory]
-    B -->|WEB| D[webExperimentFactory]
+    A[Client calls factory directly] --> C[fileExperimentFactory]
 
     C --> E[Scan runtimeExperimentData/]
     E --> F{Found .zip files?}
@@ -251,14 +241,6 @@ flowchart TD
     Q --> R
 
     L --> R
-
-    D --> S[GraphQL queries]
-    S --> T[Query entitiesTypes + entities]
-    S --> U[Query trialSets + trials]
-    T --> V[Build metadata dict]
-    U --> V
-    V --> W[webExperiment.__init__]
-    W --> R
 
     R --> X[Return Experiment object]
 ```
@@ -683,8 +665,8 @@ Experiment metadata is inherently tabular (entities have rows of properties, tri
 
 ### Why factory pattern?
 
-The same `Experiment` interface is needed regardless of whether data comes from a local file, a ZIP archive, or a remote server. The factory pattern:
+The same `Experiment` interface is needed regardless of whether data comes from a local JSON file or a ZIP archive. The factory pattern:
 
-- Hides the complexity of source detection (ZIP vs JSON vs GraphQL)
+- Hides the complexity of source detection (ZIP vs JSON)
 - Handles version migration transparently
 - Returns a uniform interface that client code can rely on

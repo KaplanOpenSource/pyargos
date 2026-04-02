@@ -59,7 +59,7 @@ graph TD
 
 | Module | Depends on (internal) | Depends on (external) |
 |--------|----------------------|----------------------|
-| `experimentSetup` | `utils.jsonutils`, `utils.logging` | `gql` (optional, for web), `matplotlib`, `requests` |
+| `experimentSetup` | `utils.jsonutils`, `utils.logging` | `matplotlib`, `requests` |
 | `manager` | `experimentSetup`, `utils.jsonutils`, `utils.logging` | `tb_rest_client` (optional) |
 | `kafka.consumer` | `utils.parquetUtils` | `kafka-python`, `numpy`, `pandas` |
 | `CLI` | `experimentSetup`, `kafka.consumer`, `manager` | `kafka-python` |
@@ -101,10 +101,6 @@ classDiagram
         +getImage()
     }
 
-    class webExperiment {
-        +getImage()
-    }
-
     class TrialSet {
         +name
         +experiment: Experiment
@@ -141,7 +137,6 @@ classDiagram
     }
 
     Experiment <|-- ExperimentZipFile
-    Experiment <|-- webExperiment
     Experiment "1" --> "*" TrialSet
     Experiment "1" --> "*" EntityType
     TrialSet "1" --> "*" Trial
@@ -163,13 +158,9 @@ pyArgos uses the Factory pattern to abstract experiment loading from different s
 <!-- mermaid source (for editing, paste into mermaid.live):
 ```mermaid
 graph TD
-    A[Client Code] --> B{Source Type?}
-    B -->|FILE| C[fileExperimentFactory]
-    B -->|WEB| D[webExperimentFactory]
+    A[Client Code] --> C[fileExperimentFactory]
     C --> E[Experiment / ExperimentZipFile]
-    D --> F[webExperiment]
     E --> G[Unified Experiment Interface]
-    F --> G
 ```
 -->
 
@@ -179,13 +170,6 @@ graph TD
 - Auto-detects ZIP vs extracted JSON format
 - Handles version migrations (1.0.0 through 3.0.0)
 - Default: uses current working directory
-
-### `webExperimentFactory`
-
-- Fetches from ArgosWEB via GraphQL
-- Requires server URL and authentication token
-- Retrieves entity types, entities, trial sets, and trials
-- Images are fetched via HTTP on demand
 
 ---
 
@@ -333,7 +317,7 @@ This makes it easy to filter, join, and analyze experiment metadata using standa
 
 ### Why optional external dependencies?
 
-ThingsBoard (`tb_rest_client`), GraphQL (`gql`), Cassandra (`cassandra-driver`), and MongoDB (`pymongo`) are all optional. pyArgos gracefully handles their absence with try/except imports. This allows users to install only what they need — a researcher doing offline analysis doesn't need ThingsBoard, and a deployment engineer doesn't need Cassandra.
+ThingsBoard (`tb_rest_client`), Cassandra (`cassandra-driver`), and MongoDB (`pymongo`) are all optional. pyArgos gracefully handles their absence with try/except imports. This allows users to install only what they need — a researcher doing offline analysis doesn't need ThingsBoard, and a deployment engineer doesn't need Cassandra.
 
 ### Why threads for Kafka consumers?
 
