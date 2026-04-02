@@ -3,18 +3,33 @@ Dask-based interface to MongoDB time-series collections.
 
 Provides the ``MongoBag`` class for querying time-series data from
 MongoDB using Dask for parallel, partitioned reads.
+
+Performance notes:
+
+- Uses a single shared MongoClient (connection pooling) instead of
+  opening/closing a connection per partition.
+- Uses datetime objects in queries instead of string comparison, allowing
+  MongoDB to use time-based indexes efficiently.
+- Uses ``dask.delayed`` → ``pd.DataFrame`` instead of ``dask.bag`` to
+  avoid unnecessary materialization overhead.
+- Supports projections to limit returned fields.
 """
 
 import dask
+import dask.dataframe as dd
 import pymongo
 import pandas
 
+
 class MongoBag:
     """
-    Dask bag interface for querying MongoDB time-series collections.
+    Dask interface for querying MongoDB time-series collections.
 
     Partitions a time range into intervals and reads each interval in
-    parallel using Dask bags.
+    parallel using ``dask.delayed``.
+
+    Uses a single shared ``MongoClient`` for all queries (connection pooled
+    by pymongo). Call ``close()`` when done.
 
     Parameters
     ----------
@@ -25,18 +40,63 @@ class MongoBag:
     datetimeField : str, optional
         The name of the timestamp field in the documents.
         Defaults to ``"timestamp"``.
+    host : str, optional
+        The MongoDB connection URI. Defaults to ``"localhost"``.
 
     Examples
     --------
     >>> bag = MongoBag(db_name="mydb", collection_name="sensor_data")
-    >>> dask_bag = bag.bag("2024-01-01", "2024-01-31", periods=20)
-    >>> df = dask_bag.to_dataframe().compute()
+    >>> df = bag.getDataFrame("2024-01-01", "2024-01-31", periods=20)
+    >>> bag.close()
+
+    Or as a context manager:
+
+    >>> with MongoBag("mydb", "sensor_data") as bag:
+    ...     df = bag.getDataFrame("2024-01-01", "2024-01-31")
     """
 
-    _db_name = None
-    _collection_name = None
+    def __init__(self, db_name, collection_name, datetimeField="timestamp",
+                 host="localhost"):
+        """
+        Initialize the MongoBag with a persistent MongoClient.
 
-    _timestamp_field = None
+        Parameters
+        ----------
+        db_name : str
+            The MongoDB database name.
+        collection_name : str
+            The collection name.
+        datetimeField : str, optional
+            The timestamp field name. Defaults to ``"timestamp"``.
+        host : str, optional
+            The MongoDB connection URI. Defaults to ``"localhost"``.
+        """
+        self._db_name = db_name
+        self._collection_name = collection_name
+        self._timestamp_field = datetimeField
+        self._client = pymongo.MongoClient(host)
+
+    def close(self):
+        """
+        Close the MongoDB client connection.
+
+        Safe to call multiple times.
+        """
+        if self._client is not None:
+            self._client.close()
+            self._client = None
+
+    def __del__(self):
+        """Close the connection on garbage collection."""
+        self.close()
+
+    def __enter__(self):
+        """Support context manager usage."""
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """Close on context manager exit."""
+        self.close()
 
     @property
     def db_name(self):
@@ -74,29 +134,56 @@ class MongoBag:
         """
         return self._timestamp_field
 
-    def __init__(self,db_name, collection_name,datetimeField="timestamp"):
+    def _read_partition(self, start_ts, end_ts, projection=None, **qry):
         """
-        Initialize the MongoBag.
+        Read documents from MongoDB for a single time interval.
+
+        Uses datetime objects for the query (not strings) so MongoDB
+        can use time-based indexes.
 
         Parameters
         ----------
-        db_name : str
-            The MongoDB database name.
-        collection_name : str
-            The collection name.
-        datetimeField : str, optional
-            The timestamp field name. Defaults to ``"timestamp"``.
-        """
-        self._db_name = db_name
-        self._collection_name = collection_name
-        self._timestamp_field  = datetimeField
+        start_ts : datetime-like
+            Start of the time interval.
+        end_ts : datetime-like
+            End of the time interval.
+        projection : dict, optional
+            MongoDB projection to limit returned fields.
+            Example: ``{"_id": 0, "timestamp": 1, "value": 1}``.
+        **qry : dict
+            Additional MongoDB query filters.
 
-    def bag(self, start_time, end_time, periods: int = 10 ,freq : str =None,**qry):
+        Returns
+        -------
+        pandas.DataFrame
+            A DataFrame of documents matching the query.
+            Empty DataFrame if no results.
         """
-        Create a Dask bag for parallel reads over a time range.
+        full_qry = {
+            self._timestamp_field: {
+                '$gte': start_ts,
+                '$lt': end_ts
+            }
+        }
+        full_qry.update(qry)
+
+        collection = self._client[self._db_name][self._collection_name]
+
+        cursor = collection.find(full_qry, projection=projection)
+        items = list(cursor)
+
+        if not items:
+            return pandas.DataFrame()
+
+        return pandas.DataFrame(items)
+
+    def bag(self, start_time, end_time, periods=10, freq=None,
+            projection=None, **qry):
+        """
+        Create a Dask DataFrame for parallel reads over a time range.
 
         Splits the time range into partitions using ``pandas.date_range``
-        and reads each partition in parallel.
+        and reads each partition in parallel using ``dask.delayed``.
 
         Parameters
         ----------
@@ -109,30 +196,73 @@ class MongoBag:
         freq : str, optional
             Partition frequency (e.g., ``"1D"``, ``"1H"``). If set,
             ``periods`` is ignored.
+        projection : dict, optional
+            MongoDB projection to limit returned fields.
         **qry : dict
-            Additional MongoDB query filters merged into each partition's
-            query.
+            Additional MongoDB query filters.
 
         Returns
         -------
-        dask.bag.Bag
-            A Dask bag of document dicts from the collection.
+        dask.dataframe.DataFrame
+            A Dask DataFrame of documents from the collection.
         """
-
         start_time = pandas.to_datetime(start_time)
-        end_time   = pandas.to_datetime(end_time)
+        end_time = pandas.to_datetime(end_time)
 
-        dateRange = pandas.date_range(start_time,end_time,periods=periods,freq=freq,tz="israel")
+        date_range = pandas.date_range(
+            start_time, end_time, periods=periods, freq=freq, tz="israel"
+        )
 
-        partitions_requests = list(zip(dateRange[:-1], dateRange[1:]))
-        b = (dask.bag.from_sequence(partitions_requests)
-             .map(lambda x: self.read_datetime_interval_from_collection(x,**qry))
-             .flatten())
-        return b
+        delayed_parts = []
+        for i in range(len(date_range) - 1):
+            part = dask.delayed(self._read_partition)(
+                date_range[i].to_pydatetime(),
+                date_range[i + 1].to_pydatetime(),
+                projection=projection,
+                **qry
+            )
+            delayed_parts.append(part)
 
-    def read_datetime_interval_from_collection(self, args,**qry):
+        return dd.from_delayed(delayed_parts)
+
+    def getDataFrame(self, start_time, end_time, periods=10, freq=None,
+                     projection=None, **qry):
+        """
+        Query data and return as a Pandas DataFrame.
+
+        Convenience method that calls ``bag()`` and computes immediately.
+
+        Parameters
+        ----------
+        start_time : str
+            Start of the time range.
+        end_time : str
+            End of the time range.
+        periods : int, optional
+            Number of partitions. Defaults to 10.
+        freq : str, optional
+            Partition frequency.
+        projection : dict, optional
+            MongoDB projection to limit returned fields.
+        **qry : dict
+            Additional MongoDB query filters.
+
+        Returns
+        -------
+        pandas.DataFrame
+            A DataFrame of all matching documents.
+        """
+        ddf = self.bag(start_time, end_time, periods=periods, freq=freq,
+                       projection=projection, **qry)
+        return ddf.compute()
+
+    def read_datetime_interval_from_collection(self, args, **qry):
         """
         Read documents from MongoDB for a single time interval.
+
+        .. deprecated::
+            Use ``_read_partition()`` instead. This method is kept for
+            backwards compatibility.
 
         Parameters
         ----------
@@ -146,14 +276,4 @@ class MongoBag:
         list[dict]
             A list of document dicts matching the time range and filters.
         """
-
-        start_ts = args[0].strftime("%Y-%-m-%-d %-H:%-M:%-S.%f")
-        end_ts   = args[1].strftime("%Y-%-m-%-d %-H:%-M:%-S.%f")
-
-        full_qry = {self._timestamp_field: {'$gte': start_ts, '$lte': end_ts}}
-        full_qry.update(qry)
-
-        with pymongo.MongoClient() as mongo_client:
-            collection = mongo_client[self.db_name][self.collection_name]
-            items = list(collection.find(full_qry))
-        return items
+        return self._read_partition(args[0], args[1], **qry).to_dict('records')
