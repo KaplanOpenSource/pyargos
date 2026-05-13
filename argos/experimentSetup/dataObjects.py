@@ -902,13 +902,7 @@ class Trial:
             A dictionary mapping property labels to their parsed values.
         """
 
-        propDict = {}
-        propList = self._metadata['attributes'] if 'attributes' in self._metadata else self._metadata['properties']
-
-        for prop in propList:
-            propDict[prop['name']] = prop['value']
-
-        return propDict
+        return self._properties
 
     @property
     def trialSet(self):
@@ -956,8 +950,18 @@ class Trial:
         if len(metadata.get('properties', [])):
             propertiesPandas = pandas.DataFrame(metadata['properties']).set_index('key')
 
-            properties = propertiesPandas.merge(trialSet.propertiesTable, left_index=True, right_index=True)[
-                ['val', 'type', 'label', 'description']]
+            # pandas 3.x: merge on index requires matching index types/values.
+            # Build the attribute-type definitions indexed by key/name so the
+            # join aligns on property names rather than integer positions.
+            pts = pandas.DataFrame(trialSet.properties)
+            key_col = 'key' if 'key' in pts.columns else 'name'
+            pts = pts.set_index(key_col)
+            for col in ('label', 'description'):
+                if col not in pts.columns:
+                    pts[col] = ''
+            properties = propertiesPandas[['val']].join(
+                pts[['type', 'label', 'description']], how='inner'
+            )
             getParser = lambda x: getattr(self, f"_parseProperty_{x.replace('-', '_')}")
 
             #       this wont work well for location property in the trial because it has 2 fields.
@@ -1172,7 +1176,11 @@ class Trial:
         if localdata is None:
             data = [None]
         else:
-            data = [localdata.tz_localize("israel")]
+            # pandas 3.x parses Z-suffix as tz-aware UTC; convert rather than localize
+            if localdata.tzinfo is not None:
+                data = [localdata.tz_convert("Asia/Jerusalem")]
+            else:
+                data = [localdata.tz_localize("Asia/Jerusalem")]
         columns = [propertyLabel]
 
         return columns, data
