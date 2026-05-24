@@ -52,7 +52,7 @@ def appendToParquet(toBeAppended,additionalData,datetimeColumn='datetime'):
 
 
     logger.debug(f"Loading old data file {toBeAppended}.")
-    dsk = dd.read_parquet(toBeAppended,engine="fastparquet")
+    dsk = dd.read_parquet(toBeAppended, engine="pyarrow")
     united = dd.concat([dsk, newData.set_index(datetimeColumn)])
     logger.debug(f"Check if the last partition is too large. ")
     if united.partitions[-1].memory_usage().sum().compute()/1e6 > 100 or united.npartitions > 10:
@@ -112,5 +112,5 @@ def writeToParquet(parquetFile,data,datetimeColumn='datetime'):
 
     #newData = newData.assign(datetimeString=newData[datetimeColumn].apply(lambda x: x.strftime("%d_%m_%Y"))).set_index(datetimeColumn)
     dsk = dd.from_pandas(newData,npartitions=1).set_index(datetimeColumn)#.repartition(freq="1D")
-    dsk.to_parquet(parquetFile,engine="fastparquet")
+    dsk.to_parquet(parquetFile, engine="pyarrow")
     return True
