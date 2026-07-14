@@ -11,7 +11,7 @@ import logging
 import logging.config
 import os.path
 import pathlib
-from importlib.resources import read_text
+from importlib.resources import files
 from typing import List
 
 #: Custom log level between DEBUG (10) and INFO (20), used for
@@ -132,7 +132,7 @@ def get_default_logging_config(*, disable_existing_loggers: bool = False) -> dic
     """
     defaultLocalConfig = os.path.join(ARGOS_DEFAULT_LOG_DIR, 'argosLogging.config')
     if not os.path.isfile(defaultLocalConfig):
-        defaultConfig = read_text('argos.utils.logging', 'argosLogging.config')
+        defaultConfig = files('argos.utils.logging').joinpath('argosLogging.config').read_text()
         with open(defaultLocalConfig,'w') as localConfig:
             localConfig.write(defaultConfig)
 
