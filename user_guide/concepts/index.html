@@ -1,0 +1,3272 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the pyArgos IoT experiment management platform">
+      
+      
+      
+        <link rel="canonical" href="https://argosp.github.io/pyargos/user_guide/concepts/">
+      
+      
+        <link rel="prev" href="../installation/">
+      
+      
+        <link rel="next" href="../experiment_setup/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Key Concepts - pyArgos Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#key-concepts" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="pyArgos Documentation" class="md-header__button md-logo" aria-label="pyArgos Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            pyArgos Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Key Concepts
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/argosp/pyargos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    argosp/pyargos
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../developer_guide/" class="md-tabs__link">
+          
+  
+  
+  Developer Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="pyArgos Documentation" class="md-nav__button md-logo" aria-label="pyArgos Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    pyArgos Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/argosp/pyargos" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    argosp/pyargos
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation & Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key Concepts
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Key Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-where-the-data-comes-from-argosweb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. Where the Data Comes From — ArgosWEB
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0. Where the Data Comes From — ArgosWEB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-argosweb-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What ArgosWEB does
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-pyargos-fits-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How pyArgos fits in
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#you-dont-write-json-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        You don't write JSON by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-experiments-and-trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Experiments and Trials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-trials-as-a-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Trials as a Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-devices-and-device-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Devices and Device Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Devices and Device Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#device-type-the-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Device Type — the schema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-instance-the-individual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Device Instance — the individual
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-devices-as-a-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Devices as a Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-the-three-kinds-of-property-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. The Three Kinds of Property Values
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. The Three Kinds of Property Values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kind-1-type-level-constant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kind 1 — Type-level constant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kind-2-instance-level-constant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kind 2 — Instance-level constant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kind-3-trial-level-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kind 3 — Trial-level value
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-how-it-all-fits-together-in-the-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. How It All Fits Together in the JSON
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-containment-devices-inside-devices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Containment — Devices Inside Devices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-image-maps-devices-on-a-site-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Image Maps — Devices on a Site Plan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Image Maps — Devices on a Site Plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-an-image-map-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What an image map is
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-image-maps-are-defined-in-the-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How image maps are defined in the JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accessing-images-in-pyargos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accessing images in pyArgos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coordinate-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coordinate mapping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-device-coordinates-come-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where device coordinates come from
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-a-note-on-terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. A Note on Terminology
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-experiment-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Experiment Lifecycle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Experiment Lifecycle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-planning-argosweb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1 — Planning (ArgosWEB)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-execution-field-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2 — Execution (Field / Lab)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-post-processing-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3 — Post-Processing (Analysis)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifecycle-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lifecycle Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-experiment-directory-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Experiment Directory Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experiment_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experiment Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kafka/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../thingsboard/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ThingsBoard Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nodered/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node-RED Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing & Mock Devices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Developer Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/data_model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Model Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experiment Setup
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Experiment Setup
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/experiment_setup_index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/architecture/experiment_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/api/experiment_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/architecture/core_concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/architecture/data_flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/api/manager/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experiment Manager
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/api/kafka/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kafka Consumer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/api/nodered/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Node-RED
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/api/nosql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NoSQL (Cassandra & MongoDB)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developer_guide/api/utils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0-where-the-data-comes-from-argosweb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0. Where the Data Comes From — ArgosWEB
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0. Where the Data Comes From — ArgosWEB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-argosweb-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What ArgosWEB does
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-pyargos-fits-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How pyArgos fits in
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#you-dont-write-json-by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        You don't write JSON by hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-experiments-and-trials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Experiments and Trials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-trials-as-a-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Trials as a Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-devices-and-device-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Devices and Device Types
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Devices and Device Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#device-type-the-schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Device Type — the schema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#device-instance-the-individual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Device Instance — the individual
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-devices-as-a-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Devices as a Table
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-the-three-kinds-of-property-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. The Three Kinds of Property Values
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. The Three Kinds of Property Values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kind-1-type-level-constant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kind 1 — Type-level constant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kind-2-instance-level-constant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kind 2 — Instance-level constant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kind-3-trial-level-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kind 3 — Trial-level value
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary table
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-how-it-all-fits-together-in-the-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. How It All Fits Together in the JSON
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-containment-devices-inside-devices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Containment — Devices Inside Devices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-image-maps-devices-on-a-site-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Image Maps — Devices on a Site Plan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Image Maps — Devices on a Site Plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-an-image-map-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What an image map is
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-image-maps-are-defined-in-the-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How image maps are defined in the JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accessing-images-in-pyargos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accessing images in pyArgos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coordinate-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coordinate mapping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-device-coordinates-come-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where device coordinates come from
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-a-note-on-terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. A Note on Terminology
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-experiment-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Experiment Lifecycle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Experiment Lifecycle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-planning-argosweb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 1 — Planning (ArgosWEB)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-execution-field-lab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 2 — Execution (Field / Lab)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-post-processing-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phase 3 — Post-Processing (Analysis)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lifecycle-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lifecycle Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Diagram
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-experiment-directory-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Experiment Directory Structure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="key-concepts">Key Concepts<a class="headerlink" href="#key-concepts" title="Permanent link">&para;</a></h1>
+<p>Understanding the core concepts behind pyArgos will help you work with the platform effectively.</p>
+<p><strong>Table of Contents</strong></p>
+<ol>
+<li><a href="#0-where-the-data-comes-from-argosweb">Where the Data Comes From — ArgosWEB</a></li>
+<li><a href="#1-experiments-and-trials">Experiments and Trials</a></li>
+<li><a href="#2-trials-as-a-table">Trials as a Table</a></li>
+<li><a href="#3-devices-and-device-types">Devices and Device Types</a></li>
+<li><a href="#4-devices-as-a-table">Devices as a Table</a></li>
+<li><a href="#5-the-three-kinds-of-property-values">The Three Kinds of Property Values</a></li>
+<li><a href="#6-how-it-all-fits-together-in-the-json">How It All Fits Together in the JSON</a></li>
+<li><a href="#7-containment-devices-inside-devices">Containment — Devices Inside Devices</a></li>
+<li><a href="#8-image-maps-devices-on-a-site-plan">Image Maps — Devices on a Site Plan</a></li>
+<li><a href="#9-a-note-on-terminology">A Note on Terminology</a></li>
+<li><a href="#10-experiment-lifecycle">Experiment Lifecycle</a></li>
+<li><a href="#11-experiment-directory-structure">Experiment Directory Structure</a></li>
+</ol>
+<hr />
+<h2 id="0-where-the-data-comes-from-argosweb">0. Where the Data Comes From — ArgosWEB<a class="headerlink" href="#0-where-the-data-comes-from-argosweb" title="Permanent link">&para;</a></h2>
+<p>Before pyArgos touches any data, experiments are designed in
+<a href="https://github.com/argosp"><strong>ArgosWEB</strong></a> — a web-based graphical user
+interface for planning and managing IoT experiments.</p>
+<h3 id="what-argosweb-does">What ArgosWEB does<a class="headerlink" href="#what-argosweb-does" title="Permanent link">&para;</a></h3>
+<p>ArgosWEB provides a visual UI where researchers and engineers:</p>
+<ol>
+<li><strong>Create an experiment</strong> — give it a name, description, start/end dates.</li>
+<li><strong>Define device types</strong> — specify what kinds of devices the experiment uses
+   (e.g., "Sensor", "Pole", "Gateway") and what properties each type has
+   (threshold, location, calibration, etc.).</li>
+<li><strong>Add device instances</strong> — create the individual devices
+   (Sensor_01, Sensor_02, ...) under each type.</li>
+<li><strong>Design trials</strong> — create trial types (groups of trials) and individual
+   trials within them. For each trial, configure which devices participate
+   and what their trial-specific settings are (placement, thresholds, etc.).</li>
+<li><strong>Place devices on a map</strong> — drag and drop devices onto geo-referenced
+   map images to set their coordinates visually.</li>
+<li><strong>Set up containment</strong> — define which devices are physically inside other
+   devices (e.g., a sensor mounted on a pole).</li>
+<li><strong>Export</strong> — download the entire experiment definition as a <code>.zip</code> file
+   containing a <code>data.json</code> and optional map images.</li>
+</ol>
+<p>All of this is done through forms, tables, and map interfaces in the browser
+— no JSON editing required.</p>
+<h3 id="how-pyargos-fits-in">How pyArgos fits in<a class="headerlink" href="#how-pyargos-fits-in" title="Permanent link">&para;</a></h3>
+<p>pyArgos is the <strong>Python programmatic interface</strong> to the data that ArgosWEB
+creates. It reads the exported ZIP file and makes the experiment data
+available as Python objects and Pandas DataFrames.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>                    ┌──────────────────────┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                    │      ArgosWEB UI     │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>                    │  (browser-based)     │
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                    │                      │
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>                    │  Create experiment   │
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                    │  Define devices      │
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                    │  Design trials       │
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>                    │  Place on map        │
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>                    └──────────┬───────────┘
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>                               │
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>                    ┌──────────▼───────────┐
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>                    │   Export as .zip     │
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>                    │   (data.json +      │
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>                    │    images)           │
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>                    └──────────┬───────────┘
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>                               │
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>              ┌────────────────▼────────────────┐
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>              │          pyArgos                 │
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>              │                                 │
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>              │  Load ZIP → Python objects      │
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>              │  Access as Pandas DataFrames    │
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>              │  Upload to ThingsBoard          │
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>              │  Stream data via Kafka          │
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>              │  Analyze and visualize          │
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>              └─────────────────────────────────┘
+</code></pre></div>
+<h3 id="you-dont-write-json-by-hand">You don't write JSON by hand<a class="headerlink" href="#you-dont-write-json-by-hand" title="Permanent link">&para;</a></h3>
+<p>The JSON structures described in this guide are <strong>generated by ArgosWEB</strong>.
+You will rarely need to edit them manually. Understanding the JSON format is
+useful for:</p>
+<ul>
+<li>Debugging issues with experiment loading</li>
+<li>Writing scripts that programmatically modify experiment configurations</li>
+<li>Understanding what pyArgos is doing under the hood</li>
+</ul>
+<p>For day-to-day use, you design experiments in ArgosWEB, export a ZIP, and
+let pyArgos handle the rest.</p>
+<hr />
+<h2 id="1-experiments-and-trials">1. Experiments and Trials<a class="headerlink" href="#1-experiments-and-trials" title="Permanent link">&para;</a></h2>
+<p>An <strong>experiment</strong> is the overall study — it defines the scientific question,
+the devices involved, and the protocol being followed.</p>
+<p>A <strong>trial</strong> is one complete execution of that protocol. An experiment contains
+many trials, and trials differ from each other by their conditions and
+configuration.</p>
+<p>Two common reasons to run multiple trials within the same experiment:</p>
+<p><strong>Preliminary vs. real trials.</strong> Early trials may explore different device
+configurations, placement, or sensor thresholds before the real measurement
+conditions are fixed. Once the setup is validated, the real trials begin.</p>
+<p><strong>Varying a parameter.</strong> The real trials may hold the device configuration
+constant but vary something about the experimental condition — the amount of
+a substance released, the speed of a vehicle, the time of day.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Experiment: &quot;Dispersion study under varying wind conditions&quot;
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├── Preliminary Trial 1  — test sensor placement, threshold=10.0
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├── Preliminary Trial 2  — adjust placement, threshold=15.0
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>├── Trial 1 (real)       — fixed placement, amount_released=50g
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>├── Trial 2 (real)       — fixed placement, amount_released=100g
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>└── Trial 3 (real)       — fixed placement, amount_released=200g
+</code></pre></div>
+<p>Each trial is independent. It has a precise start time and end time, a fixed
+set of conditions, and produces its own self-contained dataset.</p>
+<hr />
+<h2 id="2-trials-as-a-table">2. Trials as a Table<a class="headerlink" href="#2-trials-as-a-table" title="Permanent link">&para;</a></h2>
+<p>The most natural way to think about trials is as rows in a table, where each
+column is a property of the trial.</p>
+<table>
+<thead>
+<tr>
+<th>Trial</th>
+<th>Type</th>
+<th>threshold</th>
+<th>amount_released</th>
+<th>wind_speed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Preliminary 1</td>
+<td>preliminary</td>
+<td>10.0</td>
+<td>—</td>
+<td>3 m/s</td>
+</tr>
+<tr>
+<td>Preliminary 2</td>
+<td>preliminary</td>
+<td>15.0</td>
+<td>—</td>
+<td>4 m/s</td>
+</tr>
+<tr>
+<td>Trial 1</td>
+<td>real</td>
+<td>15.0</td>
+<td>50 g</td>
+<td>3 m/s</td>
+</tr>
+<tr>
+<td>Trial 2</td>
+<td>real</td>
+<td>15.0</td>
+<td>100 g</td>
+<td>3 m/s</td>
+</tr>
+<tr>
+<td>Trial 3</td>
+<td>real</td>
+<td>15.0</td>
+<td>200 g</td>
+<td>3 m/s</td>
+</tr>
+</tbody>
+</table>
+<p>Each row is one trial. Each column is a property that may differ between
+trials. Some properties are the same across all trials (e.g. <code>wind_speed</code>
+held constant in the real trials), while others change systematically (e.g.
+<code>amount_released</code>).</p>
+<p>In the JSON, trials are organized under <strong>trial types</strong> (groups of similar
+trials) and each trial carries the properties that distinguish it:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">&quot;trialTypes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Preliminary&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">        </span><span class="nt">&quot;trials&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">            </span><span class="p">{</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Preliminary_01&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">                </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">                    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;threshold&quot;</span><span class="p">,</span><span class="w">        </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10.0&quot;</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">                    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;wind_speed_ms&quot;</span><span class="p">,</span><span class="w">    </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3&quot;</span><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">                </span><span class="p">]</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">            </span><span class="p">},</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">            </span><span class="p">{</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Preliminary_02&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">                </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">                    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;threshold&quot;</span><span class="p">,</span><span class="w">        </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;15.0&quot;</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">                    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;wind_speed_ms&quot;</span><span class="p">,</span><span class="w">    </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4&quot;</span><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">                </span><span class="p">]</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">        </span><span class="p">]</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RealTrials&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">        </span><span class="nt">&quot;trials&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">            </span><span class="p">{</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Trial_01&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a><span class="w">                </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="w">                    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;threshold&quot;</span><span class="p">,</span><span class="w">        </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;15.0&quot;</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">                    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;amount_released_g&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;50&quot;</span><span class="w">   </span><span class="p">},</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">                    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;wind_speed_ms&quot;</span><span class="p">,</span><span class="w">    </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3&quot;</span><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="w">                </span><span class="p">]</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a><span class="w">            </span><span class="p">},</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a><span class="w">            </span><span class="p">{</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a><span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Trial_02&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a><span class="w">                </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a><span class="w">                    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;threshold&quot;</span><span class="p">,</span><span class="w">        </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;15.0&quot;</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a><span class="w">                    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;amount_released_g&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;100&quot;</span><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a><span class="w">                    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;wind_speed_ms&quot;</span><span class="p">,</span><span class="w">    </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3&quot;</span><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="w">                </span><span class="p">]</span>
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a><span class="w">        </span><span class="p">]</span>
+<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a><span class="p">]</span>
+</code></pre></div>
+<hr />
+<h2 id="3-devices-and-device-types">3. Devices and Device Types<a class="headerlink" href="#3-devices-and-device-types" title="Permanent link">&para;</a></h2>
+<p>An experiment involves physical devices — sensors, detectors, cameras, markers,
+or any instrumented object. These are organized at two levels.</p>
+<h3 id="device-type-the-schema">Device Type — the schema<a class="headerlink" href="#device-type-the-schema" title="Permanent link">&para;</a></h3>
+<p>A <strong>device type</strong> defines a class of device. It specifies:</p>
+<ul>
+<li>What the device is called (e.g. <code>"Sensor"</code>)</li>
+<li>What properties it has (e.g. <code>threshold</code>, <code>location</code>)</li>
+<li>Whether each property is a fixed constant or a per-trial value</li>
+<li>Which specific device instances belong to this type</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">&quot;deviceTypes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sensor&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">        </span><span class="nt">&quot;attributeTypes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">            </span><span class="p">{</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w">         </span><span class="s2">&quot;StoreDataPerDevice&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">                </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w">         </span><span class="s2">&quot;Boolean&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">                </span><span class="nt">&quot;defaultValue&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">                </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w">        </span><span class="s2">&quot;Constant&quot;</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">            </span><span class="p">},</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">            </span><span class="p">{</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;threshold&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">                </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Number&quot;</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">            </span><span class="p">},</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">            </span><span class="p">{</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">                </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;location&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">                </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;location&quot;</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">        </span><span class="p">],</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">        </span><span class="nt">&quot;devices&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sensor_01&quot;</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sensor_02&quot;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">        </span><span class="p">]</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="p">]</span>
+</code></pre></div>
+<p>This says: <em>There is a type called Sensor. It has three properties. There are
+two individual sensors: Sensor_01 and Sensor_02.</em></p>
+<h3 id="device-instance-the-individual">Device Instance — the individual<a class="headerlink" href="#device-instance-the-individual" title="Permanent link">&para;</a></h3>
+<p>A <strong>device instance</strong> is one physical item of a given type. In the example
+above, <code>Sensor_01</code> and <code>Sensor_02</code> are both instances of the <code>Sensor</code> type.
+They share the same property schema but may have different property values in
+each trial.</p>
+<hr />
+<h2 id="4-devices-as-a-table">4. Devices as a Table<a class="headerlink" href="#4-devices-as-a-table" title="Permanent link">&para;</a></h2>
+<p>Just as trials form a table of rows and columns, so do devices. Each <strong>row</strong>
+is one device instance and each <strong>column</strong> is a property of that device.</p>
+<table>
+<thead>
+<tr>
+<th>Device</th>
+<th>Type</th>
+<th>StoreDataPerDevice</th>
+<th>threshold</th>
+<th>location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sensor_01</td>
+<td>Sensor</td>
+<td>false <em>(type default)</em></td>
+<td>25.0</td>
+<td>[32.08, 34.94]</td>
+</tr>
+<tr>
+<td>Sensor_02</td>
+<td>Sensor</td>
+<td>false <em>(type default)</em></td>
+<td>30.0</td>
+<td>[32.09, 34.95]</td>
+</tr>
+<tr>
+<td>Pole_01</td>
+<td>Pole</td>
+<td>—</td>
+<td>—</td>
+<td>[32.08, 34.94]</td>
+</tr>
+</tbody>
+</table>
+<p>However — and this is the key distinction — <strong>not all columns have the same
+kind of value</strong>. Some properties are fixed for the entire experiment, while
+others change from trial to trial. This leads to the three kinds of property
+values described in the next section.</p>
+<hr />
+<h2 id="5-the-three-kinds-of-property-values">5. The Three Kinds of Property Values<a class="headerlink" href="#5-the-three-kinds-of-property-values" title="Permanent link">&para;</a></h2>
+<p>A single device property can come from three different places, depending on
+how it is defined and whether it varies by trial.</p>
+<h3 id="kind-1-type-level-constant">Kind 1 — Type-level constant<a class="headerlink" href="#kind-1-type-level-constant" title="Permanent link">&para;</a></h3>
+<p>Defined once on the device type and applies identically to every instance of
+that type in every trial. It never changes.</p>
+<p><strong>Where in the JSON:</strong> <code>deviceTypes[].attributeTypes[]</code> with
+<code>"scope": "Constant"</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w">         </span><span class="s2">&quot;StoreDataPerDevice&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w">         </span><span class="s2">&quot;Boolean&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nt">&quot;defaultValue&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w">        </span><span class="s2">&quot;Constant&quot;</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="p">}</span>
+</code></pre></div>
+<p><em>Every <code>Sensor</code> instance, in every trial, has <code>StoreDataPerDevice = false</code>
+unless explicitly overridden.</em></p>
+<h3 id="kind-2-instance-level-constant">Kind 2 — Instance-level constant<a class="headerlink" href="#kind-2-instance-level-constant" title="Permanent link">&para;</a></h3>
+<p>A value that is fixed for a specific device instance but may differ between
+instances. It does not change across trials — once set, it stays the same
+for the life of the experiment.</p>
+<p><strong>Example:</strong> The serial number or hardware ID of a physical sensor.
+Sensor_01 always has its own hardware ID, Sensor_02 has a different one, and
+neither changes between trials.</p>
+<p><strong>Where in the JSON:</strong> <code>deviceTypes[].devices[]</code> — properties attached
+directly to the instance definition.</p>
+<h3 id="kind-3-trial-level-value">Kind 3 — Trial-level value<a class="headerlink" href="#kind-3-trial-level-value" title="Permanent link">&para;</a></h3>
+<p>A value that is configured specifically for each trial. The same device may
+have different property values in Trial_01 vs Trial_02 — for example, a
+different threshold, a different physical placement, or a different operational
+mode.</p>
+<p><strong>Where in the JSON:</strong> <code>trialTypes[].trials[].devicesOnTrial[].attributes[]</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">&quot;devicesOnTrial&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">        </span><span class="nt">&quot;deviceTypeName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sensor&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">        </span><span class="nt">&quot;deviceItemName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sensor_01&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">        </span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w">        </span><span class="s2">&quot;OSMMap&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">            </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">32.08</span><span class="p">,</span><span class="w"> </span><span class="mf">34.94</span><span class="p">]</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">        </span><span class="p">},</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">        </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">            </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;threshold&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;25.0&quot;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">        </span><span class="p">]</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="p">]</span>
+</code></pre></div>
+<p><em>In this trial, Sensor_01 is placed at [32.08, 34.94] and has threshold 25.0.
+In the next trial, it might be placed somewhere different with threshold 30.0.</em></p>
+<h3 id="summary-table">Summary table<a class="headerlink" href="#summary-table" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>Varies by trial?</th>
+<th>Varies by device?</th>
+<th>Where in JSON</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type-level constant</td>
+<td>No</td>
+<td>No</td>
+<td><code>deviceTypes[].attributeTypes[]</code> with <code>scope: "Constant"</code></td>
+</tr>
+<tr>
+<td>Instance-level constant</td>
+<td>No</td>
+<td>Yes</td>
+<td><code>deviceTypes[].devices[]</code></td>
+</tr>
+<tr>
+<td>Trial-level value</td>
+<td><strong>Yes</strong></td>
+<td>Yes</td>
+<td><code>trialTypes[].trials[].devicesOnTrial[].attributes[]</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-how-it-all-fits-together-in-the-json">6. How It All Fits Together in the JSON<a class="headerlink" href="#6-how-it-all-fits-together-in-the-json" title="Permanent link">&para;</a></h2>
+<p>The complete JSON structure connects these concepts through a set of
+cross-references. Here is the full relationship map:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>deviceTypes[]                      &lt;- type definitions (the schema)
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  |-- name: &quot;Sensor&quot;
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  |-- attributeTypes[]             &lt;- property schema for this type
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  |     |-- { name, type, scope: &quot;Constant&quot;, defaultValue }
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  |     |     \-- type-level constant -- same for all instances, all trials
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  |     \-- { name, type }
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>  |           \-- no scope -- value is set per trial
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>  \-- devices[]                    &lt;- instances of this type
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>        |-- { name: &quot;Sensor_01&quot; }
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>        \-- { name: &quot;Sensor_02&quot; }
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>trialTypes[]                       &lt;- groupings of related trials
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>  \-- trials[]                     &lt;- individual trials
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>        |-- name: &quot;Trial_01&quot;
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        \-- devicesOnTrial[]       &lt;- per-trial configuration of each device
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>              |-- deviceTypeName   -&gt; links to deviceTypes[].name
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>              |-- deviceItemName   -&gt; links to devices[].name
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>              |-- location         &lt;- where this device is placed in this trial
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>              |-- attributes[]     &lt;- trial-specific property values
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>              \-- containedIn      &lt;- optional: this device is inside another
+</code></pre></div>
+<p>A concrete reading of one <code>devicesOnTrial</code> entry:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">{</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="nt">&quot;deviceTypeName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sensor&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nt">&quot;deviceItemName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Sensor_01&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w">        </span><span class="s2">&quot;OSMMap&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">        </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">32.08</span><span class="p">,</span><span class="w"> </span><span class="mf">34.94</span><span class="p">]</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">        </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;threshold&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;25.0&quot;</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="p">],</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="nt">&quot;containedIn&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">        </span><span class="nt">&quot;deviceTypeName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Pole&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">        </span><span class="nt">&quot;deviceItemName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Pole_01&quot;</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="p">}</span>
+</code></pre></div>
+<p>Reading this entry in plain language:</p>
+<blockquote>
+<p><em>In this trial, the device Sensor_01 (which is of type Sensor) is placed at
+coordinates [32.08, 34.94], has its threshold set to 25.0, and is physically
+mounted on Pole_01.</em></p>
+</blockquote>
+<p>To get the complete property set for Sensor_01 in this trial, three sources
+are combined in order:</p>
+<ol>
+<li>Start with type defaults — <code>StoreDataPerDevice = false</code> (from
+   <code>deviceTypes[].attributeTypes[]</code> where <code>scope: "Constant"</code>)</li>
+<li>Apply instance-level constants — any properties fixed to Sensor_01
+   specifically</li>
+<li>Apply trial-level values — <code>threshold = 25.0</code> and
+   <code>location = [32.08, 34.94]</code> (from <code>devicesOnTrial[].attributes[]</code>)</li>
+</ol>
+<p>Later sources override earlier ones. A trial-level value always wins over a
+type default.</p>
+<hr />
+<h2 id="7-containment-devices-inside-devices">7. Containment — Devices Inside Devices<a class="headerlink" href="#7-containment-devices-inside-devices" title="Permanent link">&para;</a></h2>
+<p>Physical devices are often arranged hierarchically. A sensor may be mounted
+on a pole; the pole is anchored at a location; several poles form a cluster.
+The JSON represents this with the <code>containedIn</code> field.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">&quot;containedIn&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="nt">&quot;deviceTypeName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Pole&quot;</span><span class="p">,</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nt">&quot;deviceItemName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Pole_01&quot;</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="p">}</span>
+</code></pre></div>
+<p>This says: <em>Sensor_01 is physically contained within Pole_01.</em></p>
+<p>Containment has two practical effects:</p>
+<p><strong>Location inheritance.</strong> If a device has no location of its own, it inherits
+its parent's location. If Sensor_01 has no <code>location</code> entry in
+<code>devicesOnTrial</code> but Pole_01 does, Sensor_01 is considered to be at Pole_01's
+coordinates. This chain walks upward as many levels as needed —
+child -&gt; parent -&gt; grandparent — until a location is found.</p>
+<p><strong>Attribute inheritance.</strong> Missing attributes are similarly resolved upward
+through the containment chain.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Containment hierarchy example:
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>Cluster_A  (location: [32.10, 34.90])
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>\-- Pole_01  (no location -- inherits from Cluster_A)
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    \-- Sensor_01  (no location -- inherits from Pole_01 -&gt; Cluster_A)
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        \-- threshold: 25.0  (set directly on Sensor_01 in this trial)
+</code></pre></div>
+<p>This means you only need to specify a location once — on the outermost
+container — and all devices mounted on it automatically resolve to that
+location unless they define their own.</p>
+<hr />
+<h2 id="8-image-maps-devices-on-a-site-plan">8. Image Maps — Devices on a Site Plan<a class="headerlink" href="#8-image-maps-devices-on-a-site-plan" title="Permanent link">&para;</a></h2>
+<p>Experiments often take place at a physical site — a field, a building, an
+industrial facility. ArgosWEB lets you upload an <strong>image of the site</strong> (a
+satellite photo, a floor plan, an aerial photograph) and define its
+<strong>geographic bounding box</strong> so that device coordinates can be mapped onto it.</p>
+<h3 id="what-an-image-map-is">What an image map is<a class="headerlink" href="#what-an-image-map-is" title="Permanent link">&para;</a></h3>
+<p>An image map is a picture of the experiment site with a known coordinate
+system. It has:</p>
+<ul>
+<li>An <strong>image file</strong> (PNG) — the visual background</li>
+<li><strong>Bounding coordinates</strong> — the latitude/longitude of the image edges
+  (<code>lower</code>, <code>upper</code>, <code>left</code>, <code>right</code>)</li>
+<li><strong>Dimensions</strong> — the image size in pixels (<code>width</code>, <code>height</code>)</li>
+<li>A <strong>name</strong> — an identifier for the map (e.g., <code>"FieldMap"</code>, <code>"OSMMap"</code>)</li>
+</ul>
+<p>When a device has a <code>location</code> property with coordinates, those coordinates
+refer to a position <strong>on this image</strong>. The bounding box defines the mapping
+between real-world coordinates and pixel positions.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Image: &quot;FieldMap.png&quot; (1024 x 768 pixels)
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    upper = 32.20 ┌─────────────────────┐
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>                   │                     │
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>                   │    ● Sensor_01      │
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>                   │       (32.08, 34.94)│
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>                   │                     │
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>                   │         ● Sensor_02 │
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>                   │          (32.09, 34.95)
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>                   │                     │
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    lower = 32.00 └─────────────────────┘
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>              left = 34.80       right = 35.00
+</code></pre></div>
+<h3 id="how-image-maps-are-defined-in-the-json">How image maps are defined in the JSON<a class="headerlink" href="#how-image-maps-are-defined-in-the-json" title="Permanent link">&para;</a></h3>
+<p>In v3.0.0, image maps appear under <code>imageStandalone</code> (for images stored as
+separate files in the ZIP) or <code>imageEmbedded</code> (for base64-encoded images
+inside the JSON):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nt">&quot;imageStandalone&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">        </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FieldMap&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">        </span><span class="nt">&quot;imageUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;images/fieldMap.png&quot;</span><span class="p">,</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">        </span><span class="nt">&quot;lower&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">32.00</span><span class="p">,</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">        </span><span class="nt">&quot;upper&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">32.20</span><span class="p">,</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">        </span><span class="nt">&quot;left&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">34.80</span><span class="p">,</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">        </span><span class="nt">&quot;right&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">35.00</span><span class="p">,</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">        </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1024</span><span class="p">,</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">        </span><span class="nt">&quot;height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">768</span><span class="p">,</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">        </span><span class="nt">&quot;embedded&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="p">]</span>
+</code></pre></div>
+<p>In v2.0.0, the same data appears under <code>experiment.maps</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nt">&quot;experiment&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="nt">&quot;maps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">            </span><span class="nt">&quot;imageName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FieldMap&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">            </span><span class="nt">&quot;imageUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;images/fieldMap.png&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">            </span><span class="nt">&quot;lower&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">32.00</span><span class="p">,</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">            </span><span class="nt">&quot;upper&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">32.20</span><span class="p">,</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">            </span><span class="nt">&quot;left&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">34.80</span><span class="p">,</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">            </span><span class="nt">&quot;right&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">35.00</span><span class="p">,</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">            </span><span class="nt">&quot;width&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1024</span><span class="p">,</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">            </span><span class="nt">&quot;height&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">768</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">    </span><span class="p">]</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="p">}</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code> / <code>imageName</code></td>
+<td>Identifier for the map</td>
+</tr>
+<tr>
+<td><code>imageUrl</code></td>
+<td>Path to the image file (relative to ZIP root or server)</td>
+</tr>
+<tr>
+<td><code>lower</code>, <code>upper</code></td>
+<td>Latitude bounds of the image</td>
+</tr>
+<tr>
+<td><code>left</code>, <code>right</code></td>
+<td>Longitude bounds of the image</td>
+</tr>
+<tr>
+<td><code>width</code>, <code>height</code></td>
+<td>Image dimensions in pixels</td>
+</tr>
+<tr>
+<td><code>embedded</code></td>
+<td>Whether the image is base64-encoded in the JSON</td>
+</tr>
+</tbody>
+</table>
+<h3 id="accessing-images-in-pyargos">Accessing images in pyArgos<a class="headerlink" href="#accessing-images-in-pyargos" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">experiment</span> <span class="o">=</span> <span class="n">fileExperimentFactory</span><span class="p">(</span><span class="s2">&quot;/path/to/exp&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">getExperiment</span><span class="p">()</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="c1"># List all available maps</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">experiment</span><span class="o">.</span><span class="n">imageMap</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>   <span class="c1"># e.g., dict_keys([&#39;FieldMap&#39;])</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="c1"># Get the metadata (bounding box, dimensions, URL)</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="n">metadata</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">getImageMetadata</span><span class="p">(</span><span class="s2">&quot;FieldMap&quot;</span><span class="p">)</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">],</span> <span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">])</span>   <span class="c1"># 32.0, 32.2</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="nb">print</span><span class="p">(</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">],</span> <span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">])</span>    <span class="c1"># 34.8, 35.0</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="c1"># Load the image as a NumPy array (for plotting with matplotlib)</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="n">img</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">getImage</span><span class="p">(</span><span class="s2">&quot;FieldMap&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="coordinate-mapping">Coordinate mapping<a class="headerlink" href="#coordinate-mapping" title="Permanent link">&para;</a></h3>
+<p>The bounding box allows you to convert between real-world coordinates and
+image pixel positions. pyArgos provides a helper that generates the
+JavaScript mapping function used by ThingsBoard dashboards:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">js_code</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">getImageJSMappingFunction</span><span class="p">(</span><span class="s2">&quot;FieldMap&quot;</span><span class="p">)</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">js_code</span><span class="p">)</span>
+</code></pre></div>
+<p>This outputs JavaScript that converts <code>(origXPos, origYPos)</code> in real-world
+coordinates to <code>(image_x, image_y)</code> in normalized 0..1 coordinates:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nx">image_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">origXPos</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="mf">34.8</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">0.2</span><span class="p">;</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nx">image_y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">((</span><span class="mf">32.2</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">origYPos</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">0.2</span><span class="p">;</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="w"> </span><span class="nx">image_x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="o">:</span><span class="w"> </span><span class="nx">image_y</span><span class="p">};</span>
+</code></pre></div>
+<p>For Python analysis, you can compute the same mapping directly:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="n">img</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">getImage</span><span class="p">(</span><span class="s2">&quot;FieldMap&quot;</span><span class="p">)</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="n">meta</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">getImageMetadata</span><span class="p">(</span><span class="s2">&quot;FieldMap&quot;</span><span class="p">)</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="c1"># Plot the site image</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="n">meta</span><span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">],</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">],</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;lower&#39;</span><span class="p">],</span> <span class="n">meta</span><span class="p">[</span><span class="s1">&#39;upper&#39;</span><span class="p">]])</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="c1"># Overlay device positions from a trial</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="n">trial</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">trialSet</span><span class="p">[</span><span class="s2">&quot;design&quot;</span><span class="p">][</span><span class="s2">&quot;Trial_01&quot;</span><span class="p">]</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">props</span> <span class="ow">in</span> <span class="n">trial</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>    <span class="k">if</span> <span class="s1">&#39;latitude&#39;</span> <span class="ow">in</span> <span class="n">props</span> <span class="ow">and</span> <span class="s1">&#39;longitude&#39;</span> <span class="ow">in</span> <span class="n">props</span><span class="p">:</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">props</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">props</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">props</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">props</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]),</span>
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>                    <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Longitude&quot;</span><span class="p">)</span>
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Latitude&quot;</span><span class="p">)</span>
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Device Positions — Trial_01&quot;</span><span class="p">)</span>
+<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="where-device-coordinates-come-from">Where device coordinates come from<a class="headerlink" href="#where-device-coordinates-come-from" title="Permanent link">&para;</a></h3>
+<p>When you place a device on the map in ArgosWEB, the UI stores the
+coordinates in the device's <code>location</code> property within <code>devicesOnTrial</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FieldMap&quot;</span><span class="p">,</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">    </span><span class="nt">&quot;coordinates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">32.08</span><span class="p">,</span><span class="w"> </span><span class="mf">34.94</span><span class="p">]</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="p">}</span>
+</code></pre></div>
+<p>The <code>name</code> field refers to the image map the device was placed on. The
+<code>coordinates</code> are <code>[latitude, longitude]</code> within that map's bounding box.</p>
+<p>If a device has no <code>location</code> but is <code>containedIn</code> another device that does,
+it inherits the parent's location (see
+<a href="#7-containment-devices-inside-devices">Containment</a> above).</p>
+<hr />
+<h2 id="9-a-note-on-terminology">9. A Note on Terminology<a class="headerlink" href="#9-a-note-on-terminology" title="Permanent link">&para;</a></h2>
+<p>The terms <strong>device</strong> and <strong>entity</strong> refer to the same concept. The terminology
+changed between versions of the format:</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>v3.0.0 (current)</th>
+<th>v2.0.0</th>
+<th>Internal (pyArgos)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type definition</td>
+<td><code>deviceTypes</code></td>
+<td><code>entityTypes</code></td>
+<td><code>entityTypes</code></td>
+</tr>
+<tr>
+<td>Instance</td>
+<td><code>devices</code></td>
+<td><code>entities</code></td>
+<td><code>entities</code></td>
+</tr>
+<tr>
+<td>Trial entity data</td>
+<td><code>devicesOnTrial</code></td>
+<td><code>entities</code> (in trial)</td>
+<td><code>entities</code></td>
+</tr>
+<tr>
+<td>Trial set</td>
+<td><code>trialTypes</code></td>
+<td><code>trialSets</code></td>
+<td><code>trialSets</code></td>
+</tr>
+</tbody>
+</table>
+<p>When reading documentation, code comments, or older JSON files: <strong>device and
+entity mean the same thing.</strong> v3.0.0 uses device terminology throughout.
+pyArgos normalizes everything to entity terminology internally regardless
+of which version of the JSON it reads.</p>
+<hr />
+<h2 id="10-experiment-lifecycle">10. Experiment Lifecycle<a class="headerlink" href="#10-experiment-lifecycle" title="Permanent link">&para;</a></h2>
+<p>An experiment moves through three distinct phases. Each phase involves
+different tools, different people, and different data flows.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>    Phase 1                    Phase 2                      Phase 3
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>   PLANNING                  EXECUTION                  POST-PROCESSING
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>  ┌───────────┐         ┌────────────────┐          ┌───────────────┐
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>  │ ArgosWEB  │         │ Field / Lab    │          │ Analysis      │
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>  │           │         │                │          │               │
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>  │ Design    │────────&gt;│ Run trials     │─────────&gt;│ Combine data  │
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>  │ experiment│         │ Collect data   │          │ with metadata │
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>  │           │         │ Update config  │          │ Visualize     │
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>  └───────────┘         └────────────────┘          └───────────────┘
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>       │                      │    │                       │
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>       ▼                      ▼    ▼                       ▼
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>    ZIP file              Kafka  Parquet            Jupyter + Hera
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>    (data.json)           topics  files             experiment toolkit
+</code></pre></div>
+<h3 id="phase-1-planning-argosweb">Phase 1 — Planning (ArgosWEB)<a class="headerlink" href="#phase-1-planning-argosweb" title="Permanent link">&para;</a></h3>
+<p>Before any physical device is deployed, the experiment is <strong>designed</strong> in
+ArgosWEB. This is where all the metadata is created:</p>
+<p><strong>Define the structure:</strong></p>
+<ul>
+<li>Create the experiment (name, description, dates)</li>
+<li>Define <strong>device types</strong> — the kinds of devices used (Sensor, Pole, Camera,
+  etc.) and their property schemas</li>
+<li>Add <strong>device instances</strong> — the individual devices (Sensor_01, Sensor_02, ...)</li>
+<li>Define <strong>device groups</strong> — logical groupings of devices that share a common
+  purpose or location</li>
+<li>Create <strong>trial types</strong> — categories of trials (Preliminary, Real, Calibration)</li>
+<li>Create <strong>trials</strong> within each type — each with its own conditions and
+  per-device configuration</li>
+</ul>
+<p><strong>Place devices on maps:</strong></p>
+<ul>
+<li>Upload <strong>site images</strong> (satellite photos, floor plans, aerial views)</li>
+<li>Define the <strong>bounding coordinates</strong> of each image</li>
+<li><strong>Drag and drop</strong> devices onto the map to set their coordinates</li>
+<li>Set up <strong>containment</strong> — which devices are physically inside others
+  (sensor on pole, pole at location)</li>
+</ul>
+<p><strong>Set properties:</strong></p>
+<ul>
+<li>Configure <strong>type-level constants</strong> (defaults that apply to all devices of
+  a type)</li>
+<li>Set <strong>trial-level values</strong> for each device in each trial (position,
+  threshold, calibration, operational mode)</li>
+</ul>
+<p><strong>Export:</strong></p>
+<ul>
+<li>Download the entire experiment definition as a <strong>ZIP file</strong> containing
+  <code>data.json</code> and map images</li>
+<li>This ZIP is the input to pyArgos and the bridge to all downstream systems</li>
+</ul>
+<p>At the end of Phase 1, you have a complete <strong>plan</strong> — the intended positions,
+configurations, and conditions for every trial. Nothing has been measured yet.</p>
+<h3 id="phase-2-execution-field-lab">Phase 2 — Execution (Field / Lab)<a class="headerlink" href="#phase-2-execution-field-lab" title="Permanent link">&para;</a></h3>
+<p>The experiment is now <strong>running</strong>. Devices are deployed in the field or lab,
+and data flows through the system.</p>
+<p><strong>Update the plan to match reality:</strong></p>
+<p>The planned positions and configurations from Phase 1 may not exactly match
+what happens in the field. Devices may be moved, conditions may change, trials
+may be added or modified. ArgosWEB is updated to reflect the <strong>actual</strong>
+state of the experiment — the real positions, the real trial parameters, the
+real start and end times.</p>
+<p><strong>Data collection pipeline:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Devices                 Node-RED                Kafka                pyArgos
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>   │                       │                      │                    │
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>   │  raw data (MQTT/UDP)  │                      │                    │
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>   ├──────────────────────&gt;│                      │                    │
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>   │                       │  normalize:          │                    │
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>   │                       │  - add timestamp     │                    │
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>   │                       │  - parse fields      │                    │
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>   │                       │  - route by device   │                    │
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>   │                       ├─────────────────────&gt;│                    │
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>   │                       │                      │  one topic per     │
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a>   │                       │                      │  device type       │
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a>   │                       │                      │                    │
+<a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>   │                       │                      │  consume &amp; save    │
+<a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a>   │                       │                      ├───────────────────&gt;│
+<a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>   │                       │                      │                    │
+<a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a>   │                       │                      │              Parquet files
+<a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a>   │                       │                      │              (data/ dir)
+</code></pre></div>
+<ol>
+<li>
+<p><strong>Devices</strong> send raw data over MQTT or UDP to a <strong>Node-RED</strong> instance.</p>
+</li>
+<li>
+<p><strong>Node-RED</strong> acts as the normalization layer:</p>
+<ul>
+<li>Adds a consistent <strong>timestamp</strong> to each message</li>
+<li>Parses the raw device-specific data format into a standard structure</li>
+<li>Routes each message to the correct <strong>Kafka topic</strong> based on device type</li>
+</ul>
+</li>
+<li>
+<p><strong>Kafka</strong> stores messages in topics — <strong>one topic per device type</strong>
+   (e.g., <code>Sensor</code>, <code>Gateway</code>). This gives clean separation between different
+   data streams.</p>
+</li>
+<li>
+<p><strong>pyArgos consumers</strong> read from Kafka topics and write to <strong>Parquet files</strong>
+   in the experiment's <code>data/</code> directory. The file names are determined by
+   the registration script that reads the ZIP file
+   (<code>&lt;device_type&gt;.parquet</code>).</p>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Known limitation</p>
+<p>The current Kafka-to-Parquet pipeline has limitations with <strong>duplicate
+messages</strong> and <strong>out-of-order data</strong>. The consumer deduplicates by
+timestamp within a single run, but does not handle duplicates across
+restarts or out-of-order delivery robustly. This is a known issue and
+is being addressed in future versions.</p>
+</div>
+<p><strong>Live analysis during the experiment:</strong></p>
+<p>While the experiment is running, researchers can access the data in real time:</p>
+<ul>
+<li>Data is available in Parquet files as soon as a consumer batch completes</li>
+<li><strong>Jupyter notebooks</strong> are the typical analysis environment</li>
+<li>The <strong>Hera experiment toolkit</strong> combines the Parquet data with the
+  experiment metadata from the ZIP file, providing a unified interface for
+  querying device data by trial, entity, and time range</li>
+</ul>
+<h3 id="phase-3-post-processing-analysis">Phase 3 — Post-Processing (Analysis)<a class="headerlink" href="#phase-3-post-processing-analysis" title="Permanent link">&para;</a></h3>
+<p>After the experiment ends, the focus shifts to analysis and publication.</p>
+<p><strong>Combining data with metadata:</strong></p>
+<p>The raw Parquet files contain time-series data organized by device type. To
+make sense of this data, it must be combined with the experiment metadata —
+which device was where, what trial was running, what conditions were set.</p>
+<p>This combination is done by the <strong>Hera experiment toolkit</strong>, which:</p>
+<ul>
+<li>Reads the experiment ZIP (via pyArgos) for metadata</li>
+<li>Reads the Parquet files for time-series data</li>
+<li>Joins them by device name and time range</li>
+<li>Provides a unified query interface: "give me all Sensor data from Trial_02
+  between 10:00 and 10:30"</li>
+</ul>
+<p><strong>Typical post-processing workflow:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># In a Jupyter notebook, using the Hera experiment toolkit:</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="c1"># 1. Load experiment metadata (via pyArgos under the hood)</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="n">experiment</span> <span class="o">=</span> <span class="n">load_experiment</span><span class="p">(</span><span class="s2">&quot;/path/to/experiment&quot;</span><span class="p">)</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="c1"># 2. Query data by trial and device</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="n">data</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>    <span class="n">trial</span><span class="o">=</span><span class="s2">&quot;Trial_02&quot;</span><span class="p">,</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>    <span class="n">device_type</span><span class="o">=</span><span class="s2">&quot;Sensor&quot;</span><span class="p">,</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>    <span class="n">time_range</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;2024-01-15 10:00&quot;</span><span class="p">,</span> <span class="s2">&quot;2024-01-15 10:30&quot;</span><span class="p">)</span>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="p">)</span>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="c1"># 3. Analyze</span>
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a><span class="n">data</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;temperature&quot;</span><span class="p">,</span> <span class="s2">&quot;humidity&quot;</span><span class="p">])</span>
+<a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>
+<a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a><span class="c1"># 4. Compare across trials</span>
+<a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a><span class="k">for</span> <span class="n">trial_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;Trial_01&quot;</span><span class="p">,</span> <span class="s2">&quot;Trial_02&quot;</span><span class="p">,</span> <span class="s2">&quot;Trial_03&quot;</span><span class="p">]:</span>
+<a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a>    <span class="n">trial_data</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">trial</span><span class="o">=</span><span class="n">trial_name</span><span class="p">,</span> <span class="n">device_type</span><span class="o">=</span><span class="s2">&quot;Sensor&quot;</span><span class="p">)</span>
+<a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a>    <span class="c1"># ... compute statistics, generate plots</span>
+</code></pre></div>
+<p><strong>Post-processing includes:</strong></p>
+<ul>
+<li>Quality checks (sensor drift, outliers, missing data)</li>
+<li>Cross-trial comparisons (how does the result change with conditions?)</li>
+<li>Statistical analysis (means, variances, confidence intervals)</li>
+<li>Visualization (maps, time series, heatmaps)</li>
+<li>Report generation</li>
+</ul>
+<h3 id="lifecycle-summary">Lifecycle Summary<a class="headerlink" href="#lifecycle-summary" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Where</th>
+<th>Who</th>
+<th>Key Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Planning</strong></td>
+<td>ArgosWEB (browser)</td>
+<td>Experiment designer</td>
+<td>ZIP file with metadata</td>
+</tr>
+<tr>
+<td><strong>2. Execution</strong></td>
+<td>Field/Lab + servers</td>
+<td>Operators + automated pipelines</td>
+<td>Parquet files with device data</td>
+</tr>
+<tr>
+<td><strong>3. Post-processing</strong></td>
+<td>Jupyter + Hera</td>
+<td>Researchers</td>
+<td>Analysis results, publications</td>
+</tr>
+</tbody>
+</table>
+<h3 id="system-diagram">System Diagram<a class="headerlink" href="#system-diagram" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>┌─────────────────────────────────────────────────────────────────────┐
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>│                         PLANNING                                    │
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>│                                                                     │
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>│  ArgosWEB UI ──&gt; design experiment ──&gt; export ZIP                   │
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>│                  (device types, devices, trials,                    │
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>│                   maps, groups, containment)                        │
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>└───────────────────────────┬─────────────────────────────────────────┘
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>                            │ ZIP file (data.json + images)
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>                            ▼
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>┌─────────────────────────────────────────────────────────────────────┐
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>│                         EXECUTION                                   │
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>│                                                                     │
+<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>│  Devices ──MQTT/UDP──&gt; Node-RED ──&gt; Kafka (1 topic per device type) │
+<a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>│                        (normalize,   │                              │
+<a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>│                         timestamp,   │                              │
+<a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>│                         route)       ▼                              │
+<a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a>│                                   pyArgos consumer ──&gt; Parquet      │
+<a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a>│                                                        (data/ dir)  │
+<a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a>│                                                                     │
+<a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a>│  ArgosWEB UI ──&gt; update positions &amp; trial parameters (actual state) │
+<a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a>└───────────────────────────┬─────────────────────────────────────────┘
+<a id="__codelineno-21-22" name="__codelineno-21-22" href="#__codelineno-21-22"></a>                            │ Parquet files + updated ZIP
+<a id="__codelineno-21-23" name="__codelineno-21-23" href="#__codelineno-21-23"></a>                            ▼
+<a id="__codelineno-21-24" name="__codelineno-21-24" href="#__codelineno-21-24"></a>┌─────────────────────────────────────────────────────────────────────┐
+<a id="__codelineno-21-25" name="__codelineno-21-25" href="#__codelineno-21-25"></a>│                       POST-PROCESSING                               │
+<a id="__codelineno-21-26" name="__codelineno-21-26" href="#__codelineno-21-26"></a>│                                                                     │
+<a id="__codelineno-21-27" name="__codelineno-21-27" href="#__codelineno-21-27"></a>│  Jupyter notebook                                                   │
+<a id="__codelineno-21-28" name="__codelineno-21-28" href="#__codelineno-21-28"></a>│    └── Hera experiment toolkit                                      │
+<a id="__codelineno-21-29" name="__codelineno-21-29" href="#__codelineno-21-29"></a>│          ├── reads ZIP metadata (via pyArgos)                       │
+<a id="__codelineno-21-30" name="__codelineno-21-30" href="#__codelineno-21-30"></a>│          ├── reads Parquet data                                     │
+<a id="__codelineno-21-31" name="__codelineno-21-31" href="#__codelineno-21-31"></a>│          ├── joins by device + time range                           │
+<a id="__codelineno-21-32" name="__codelineno-21-32" href="#__codelineno-21-32"></a>│          └── unified query interface                                │
+<a id="__codelineno-21-33" name="__codelineno-21-33" href="#__codelineno-21-33"></a>│                                                                     │
+<a id="__codelineno-21-34" name="__codelineno-21-34" href="#__codelineno-21-34"></a>│  Output: analysis, visualizations, reports, publications            │
+<a id="__codelineno-21-35" name="__codelineno-21-35" href="#__codelineno-21-35"></a>└─────────────────────────────────────────────────────────────────────┘
+</code></pre></div>
+<hr />
+<h2 id="11-experiment-directory-structure">11. Experiment Directory Structure<a class="headerlink" href="#11-experiment-directory-structure" title="Permanent link">&para;</a></h2>
+<p>Every pyArgos experiment follows a standard directory layout:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>MyExperiment/
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>  code/                         # Analysis scripts
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>    argos_basic.py              # Auto-generated experiment loader
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>  data/                         # Parquet data files (one per device type)
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>  runtimeExperimentData/        # Configuration and metadata
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>    Datasources_Configurations.json   # Main config (Kafka, ThingsBoard)
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>    deviceMap.json              # Node-RED device mapping
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>    &lt;experimentName&gt;.zip        # Experiment definition (from ArgosWEB)
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>    trials/
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>      design/                   # Trial design files
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>        myTrial.json
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>      trialTemplate.json        # Generated template
+</code></pre></div>
+<hr />
+<h2 id="quick-reference">Quick Reference<a class="headerlink" href="#quick-reference" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>What it is</th>
+<th>Analogy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Experiment</td>
+<td>The overall study</td>
+<td>A spreadsheet workbook</td>
+</tr>
+<tr>
+<td>Trial</td>
+<td>One execution of the protocol</td>
+<td>A row in the trials table</td>
+</tr>
+<tr>
+<td>Trial type</td>
+<td>A group of similar trials</td>
+<td>A sheet within the workbook</td>
+</tr>
+<tr>
+<td>Device type</td>
+<td>The schema for a class of device</td>
+<td>A column header definition</td>
+</tr>
+<tr>
+<td>Device instance</td>
+<td>One physical device</td>
+<td>A row in the devices table</td>
+</tr>
+<tr>
+<td>Property (Constant scope)</td>
+<td>Same value for all instances, all trials</td>
+<td>A fixed column default</td>
+</tr>
+<tr>
+<td>Property (Instance-level)</td>
+<td>Fixed per device, same across trials</td>
+<td>A cell that never changes</td>
+</tr>
+<tr>
+<td>Property (Trial-level)</td>
+<td>Configured per trial</td>
+<td>A cell that changes row by row</td>
+</tr>
+<tr>
+<td>Containment</td>
+<td>A device physically inside another</td>
+<td>A parent-child relationship</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.instant", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
