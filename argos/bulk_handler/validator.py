@@ -1,8 +1,9 @@
 import pandas as pd
 
 from errors import save_errors
+import config
 from config import LOCAL_TIMEZONE
-from schemas import NUMERIC_COLUMNS
+#from schemas import
 
 
 def validate(
@@ -108,34 +109,35 @@ def validate(
     )
 
 
-    # -----------------------
-    # numeric validation
-    # -----------------------
-
-    for col in NUMERIC_COLUMNS:
-
-        if col in df.columns:
-
-            converted = pd.to_numeric(
-                df[col],
-                errors="coerce",
-            )
-
-            bad = converted.isna()
-
-            if bad.any():
-
-                save_errors(
-                    df[bad],
-                    source,
-                    batch,
-                    f"bad numeric {col}",
-                )
-
-                df = df[~bad]
-
-                converted = converted[~bad]
-
-            df.loc[:, col] = converted
+    # # -----------------------
+    # # numeric validation
+    # # -----------------------
+    # print("NON NUMERIC:", config.NON_NUMERIC_COLUMNS)
+    # for col in df.columns:
+    #     print(col, "->", "NON-NUMERIC" if col in config.NON_NUMERIC_COLUMNS else "NUMERIC")
+    # for col in df.columns:
+    # 
+    #     if col in config.NON_NUMERIC_COLUMNS:
+    #         continue
+    # 
+    #     converted = pd.to_numeric(
+    #         df[col],
+    #         errors="coerce",
+    #     )
+    # 
+    #     bad = converted.isna()
+    # 
+    #     if bad.any():
+    #         save_errors(
+    #             df[bad],
+    #             source,
+    #             batch,
+    #             f"bad numeric {col}",
+    #         )
+    # 
+    #         df = df[~bad]
+    #         converted = converted[~bad]
+    # 
+    #     df.loc[:, col] = converted
 
     return df

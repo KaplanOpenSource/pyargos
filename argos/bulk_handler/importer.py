@@ -5,21 +5,19 @@ import pyarrow.csv as pv
 
 from pathlib import Path
 
-from config import BLOCK_SIZE
-
-from schemas import DEVICE_SCHEMAS
-
+import config
 from parser import parse_file
 
 from validator import validate
 
 from transform import transform
+#
+# from my_questdb import (
+#     ensure_table,
+#     write,
+# )
 
-from my_questdb import (
-    ensure_table,
-    write,
-)
-
+from parquet_writer import write_parquet
 
 
 def progress(
@@ -50,7 +48,7 @@ def progress(
 
 
 def import_file(
-    sender,
+    #sender,
     file_path,
 ):
 
@@ -62,15 +60,13 @@ def import_file(
     )
 
 
-    schema = DEVICE_SCHEMAS[
-        device_type
-    ]
+    schema = config.DEVICE_SCHEMAS[device_type]
 
 
-    ensure_table(
-        table,
-        schema,
-    )
+    # ensure_table(
+    #     table,
+    #     schema,
+    # )
 
 
     # -------------------------
@@ -88,7 +84,7 @@ def import_file(
         1,
         math.ceil(
             file_size /
-            BLOCK_SIZE
+            config.BLOCK_SIZE
         )
     )
 
@@ -104,7 +100,7 @@ def import_file(
 
         read_options=pv.ReadOptions(
             column_names=schema,
-            block_size=BLOCK_SIZE,
+            block_size=config.BLOCK_SIZE,
         ),
     )
 
@@ -155,10 +151,16 @@ def import_file(
 
         try:
 
-            written = write(
-                sender,
-                table,
+            # written = write(
+            #     sender,
+            #     table,
+            #     df,
+            # )
+            written = write_parquet(
                 df,
+                output_root=config.PARQUET_ROOT,
+                station = station,
+                device_type = device_type
             )
 
             total_written += written

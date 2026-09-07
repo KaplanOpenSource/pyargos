@@ -1,8 +1,7 @@
 from pathlib import Path
 import pandas as pd
 
-from config import ERROR_FOLDER
-
+import config
 
 def save_errors(
     df,
@@ -40,7 +39,7 @@ def save_errors(
     )
 
     target = (
-        ERROR_FOLDER /
+        config.ERROR_FOLDER /
         (
             Path(source_file).name
             +

@@ -16,15 +16,18 @@ def parse_file(path):
             f"Bad filename: {filename}"
         )
 
-    station = match.group(1)
+# get rid of " " (for example: "WADI S" -> "WADI")
+    station = match.group(1).split(' ')[0]
 
     raw_device_type = match.group(2)
 
+    # get rid of numbers (for example: "SONIC1" -> "SONIC")
     device_type = re.sub(
         r"\d+$",
         "",
         raw_device_type,
     )
+
 
     table_name = (
         f"{station}_{raw_device_type}"
